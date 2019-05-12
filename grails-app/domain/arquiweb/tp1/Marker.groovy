@@ -4,7 +4,7 @@ class Marker {
 
     String title
     String description
-    Category category
+    static belongsTo = [category: Category]
     Boolean visible
 
     //TODO: ver si Location es una clase de googleMaps o nuestra
