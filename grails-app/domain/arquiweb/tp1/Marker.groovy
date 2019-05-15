@@ -3,18 +3,19 @@ package arquiweb.tp1
 class Marker {
 
     String title
+    double latitude
+    double longitude
     String description
-    static belongsTo = [category: Category]
+    String iconImage
     Boolean visible
 
-    //TODO: ver si Location es una clase de googleMaps o nuestra
-    // Location location
-
-    //TODO: deberian ser varias fotos ? (o videos en req no relevantes)
-    // image
+    static belongsTo = [category: Category]
 
     static constraints = {
         title size: 5..255, blank: false
         description maxSize: 255
+
+        description nullable: true
+        iconImage nullable: true
     }
 }
