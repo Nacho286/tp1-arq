@@ -7,6 +7,8 @@ class Category {
     Boolean visible
     Boolean approved
 
+    static hasMany = [markers: Marker]
+
     static constraints = {
         name size: 5..100, blank: false, unique: true
     }

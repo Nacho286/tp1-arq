@@ -9,7 +9,8 @@ class Marker {
     String iconImage
     Boolean visible
 
-    static belongsTo = [category: Category]
+    static belongsTo = Category
+    static hasMany = [categories: Category]
 
     static constraints = {
         title size: 5..255, blank: false
