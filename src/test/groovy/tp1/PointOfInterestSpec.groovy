@@ -1,5 +1,6 @@
 package tp1
 
+import arquiweb.tp1.Marker
 import grails.testing.gorm.DomainUnitTest
 import spock.lang.Specification
 
