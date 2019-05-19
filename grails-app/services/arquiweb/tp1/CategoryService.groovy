@@ -3,16 +3,20 @@ package arquiweb.tp1
 import grails.gorm.services.Service
 
 @Service(Category)
-interface CategoryService {
+abstract class CategoryService {
 
-    Category get(Serializable id)
+    abstract Category get(Serializable id)
 
-    List<Category> list(Map args)
+    abstract List<Category> list(Map args)
 
-    Long count()
+    abstract Long count()
 
-    void delete(Serializable id)
+    abstract void delete(Serializable id)
 
-    Category save(Category category)
+    abstract Category save(Category category)
+
+    Category findByName(String name){
+        return Category.findByName(name)
+    }
 
 }

@@ -1,20 +1,30 @@
 <!DOCTYPE html>
 <head>
+    <g:set var="markerService" bean="markerService"/>
+    <g:set var="markersList" value="${markerService.findAll()}"/>
+    <g:set var="categoryService" bean="categoryService"/>
+    <g:set var="categoryList" value="${categoryService.findAll()}"/>
     <meta name="layout" content="map">
 </head>
 <body>
-    <div id="sidebar" class="sidebar">
+
+    <div class="sidebar">
         <h2>Menu</h2>
-        %{-- <ul>
-            <g:each in="${markerList}">
-                <g:if test="${it.visible}">
-                    <li><a href=""><h3>${it.title}</h3>${it.description}</a></li>
-                </g:if>
-            </g:each>
-        </ul> --}%
+        <ul></ul>
     </div>
+
     <div id="map"></div>
+
+    %{--<a href="javascript:void(0);" onclick="filter()"><i class="fas fa-filter" id="filter"></i></a>
+    <div id="filter-popup">
+
+    </div>--}%
+
     <script>
+        function filter(){
+
+        }
+
         function initMap(){
             // Map options
             var bsas = {lat:-34.603722,lng:-58.381592};
@@ -29,10 +39,10 @@
 
             // New map
             var map = new google.maps.Map(document.getElementById('map'), options);
-            var sidebar = document.getElementById('sidebar');
+            var sidebar = document.getElementsByClassName('sidebar').item(0);
 
             // Add markers
-            <g:each in="${markerList}">
+            <g:each in="${markersList}">
                 props = {
                     title:'${it.title}',
                     latitude:${it.latitude},
@@ -85,10 +95,10 @@
                         infoWindow.close();
                     });
                 });
-
             }
 
             function addMarkerToList(props,sidebar){
+                var ul = document.getElementsByTagName('ul').item(0);
                 var li = document.createElement('li');
                 var a = document.createElement('a');
                 var h3 = document.createElement('h3');
@@ -100,7 +110,8 @@
                     a.appendChild(description);
                 }
                 li.appendChild(a);
-                sidebar.appendChild(li);
+                ul.appendChild(li);
+                sidebar.appendChild(ul);
             }
         }
     </script>

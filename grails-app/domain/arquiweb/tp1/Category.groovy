@@ -5,7 +5,8 @@ class Category {
     String name
     //icon ENUM?
     String iconImage
-    Boolean approved
+    Boolean visible = true
+    Boolean approved = false
 
     static hasMany = [markers: Marker]
 

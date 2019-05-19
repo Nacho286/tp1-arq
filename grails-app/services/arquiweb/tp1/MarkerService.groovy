@@ -3,16 +3,30 @@ package arquiweb.tp1
 import grails.gorm.services.Service
 
 @Service(Marker)
-interface MarkerService {
+abstract class MarkerService {
+    CategoryService categoryService
 
-    Marker get(Serializable id)
+    abstract Marker get(Serializable id)
 
-    List<Marker> list(Map args)
+    abstract List<Marker> list(Map args)
 
-    Long count()
+    abstract Long count()
 
-    void delete(Serializable id)
+    abstract void delete(Serializable id)
 
-    Marker save(Marker marker)
+    abstract Marker save(Marker marker)
+
+    List<Marker> findAll(){
+        return Marker.findAll()
+    }
+
+    List<Marker> findAllByCategoryName(String categoryName){
+        Category category = categoryService.findByName(categoryName)
+        if (category) {
+            return Marker.findAllByCategory(category)
+        } else {
+            return null
+        }
+    }
 
 }
