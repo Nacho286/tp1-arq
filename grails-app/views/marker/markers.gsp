@@ -46,6 +46,12 @@
             // New map
             map = new google.maps.Map(document.getElementById('map'), options);
 
+            // Listen for click on map
+            google.maps.event.addListener(map, 'click', function(event){
+                // Add marker
+                addNewMarker({latitude:event.latLng.lat(),longitude:event.latLng.lng()});
+            });
+
             fillMap();
         }
 
@@ -128,6 +134,29 @@
                 mapMarker : marker
             };
             markersByTitle.push(dict)
+        }
+
+        // Add Marker Function
+        function addNewMarker(props){
+            var marker = new google.maps.Marker({
+                position:{lat:props.latitude,lng:props.longitude},
+                map:map
+            });
+
+            // Check for customicon
+            if(props.iconImage){
+                // Set icon image
+                marker.setIcon(props.iconImage);
+            }
+
+
+            marker.addListener('click', function(){
+                google.maps.event.addListener(map, 'click', function() {
+                    infoWindow.close();
+                });
+            });
+
+
         }
 
         function addMarkerToList(props,sidebar){
