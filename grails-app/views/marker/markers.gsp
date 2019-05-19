@@ -7,7 +7,7 @@
 </head>
 <body>
     <div class="sidebar">
-        <h2>Menu</h2>
+        <h2>Puntos <br>de interes</h2>
         <ul id="sidebar-list"></ul>
     </div>
 
@@ -19,12 +19,13 @@
         </a>
     </div>
 
-    <div id="filter-popup" style="display:none">
+    <div id="filter-popup" style="display: none">
         <h2>Filter</h2>
+        <div id="spacer"></div>
         <g:each in="${categoryList}">
             <input type="checkbox" id="${it.name}" checked>${it.name}<br>
         </g:each>
-        <input type="button" value="Filter" onclick="fillMap()">
+        <button onclick="fillMap()"><h4>Filter</h4></button>
     </div>
 
     <script>
