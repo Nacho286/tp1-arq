@@ -6,6 +6,8 @@
     <meta name="layout" content="map">
 </head>
 <body>
+
+
     <div class="sidebar">
         <h2>Menu</h2>
         <ul id="sidebar-list"></ul>
@@ -25,6 +27,25 @@
             <input type="checkbox" id="${it.name}" checked>${it.name}<br>
         </g:each>
         <input type="button" value="Filter" onclick="fillMap()">
+    </div>
+
+    <div class="form-popup" id="myForm">
+        <form action="/action_page.php" class="form-container">
+            <h1>¿Queres agregar un lugar?</h1>
+
+            <label for="name"><b>Nombre</b></label>
+            <input type="text" placeholder="Nombre del lugar" name="name" required>
+
+            <label for="description"><b>Descripcion</b></label>
+            <input type="text" placeholder="Contanos del lugar" name="description" required>
+
+            <label for="categoria"><b>Categoria</b></label>
+            <datalist id="categories"></datalist>
+            <input list="categories" name="category" required>
+
+            <button type="submit" class="btn">Aceptar</button>
+            <button type="submit" class="btn cancel" onclick="closeForm()">Cerrar</button>
+        </form>
     </div>
 
     <script>
@@ -60,13 +81,16 @@
             var categoriesList = [];
 
             deleteAllMarkers();
-
+            var categoriesDatalist = '';
             <g:each in="${categoryList}">
                 if ( document.getElementById('${it.name}') !== null && document.getElementById('${it.name}').checked ){
                     categoriesList.push('${it.name}');
+                    categoriesDatalist += '<option value="'+'${it.name}'+'" />';
+
                 }
             </g:each>
-
+            document.getElementById('categories').innerHTML = categoriesDatalist;
+            console.log(categoriesList)
             // Add markers
             <g:each in="${markerService.findAll()}">
                 props = {
@@ -151,6 +175,7 @@
 
 
             marker.addListener('click', function(){
+                openForm()
                 google.maps.event.addListener(map, 'click', function() {
                     infoWindow.close();
                 });
@@ -207,6 +232,14 @@
             } else {
                 x.style.display = "none";
             }
+        }
+
+        function openForm() {
+            document.getElementById("myForm").style.display = "block";
+        }
+
+        function closeForm() {
+            document.getElementById("myForm").style.display = "none";
         }
 
     </script>
