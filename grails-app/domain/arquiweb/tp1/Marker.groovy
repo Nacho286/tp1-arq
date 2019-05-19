@@ -6,17 +6,13 @@ class Marker {
     double latitude
     double longitude
     String description
-    String iconImage
     Boolean visible
 
     static belongsTo = Category
-    static hasMany = [categories: Category]
+    static hasOne = [category: Category]
 
     static constraints = {
         title size: 5..255, blank: false
-        description maxSize: 255
-
-        description nullable: true
-        iconImage nullable: true
+        description maxSize: 255, nullable: true
     }
 }

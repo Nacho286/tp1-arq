@@ -21,7 +21,6 @@ class MarkerController {
         if(!restoCategory){
             restoCategory = new Category(
                     ['name':'Restaurantes',
-                     visible:true,
                      approved:true]
             )
             categoryService.save(restoCategory)
@@ -35,7 +34,7 @@ class MarkerController {
                      longitude:-58.381592,
                      description:'Prueba',
                      visible:true])
-            marker.addToCategories(restoCategory)
+            marker.setCategory(restoCategory)
             markerService.save(marker)
         }
 

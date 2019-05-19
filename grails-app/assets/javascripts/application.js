@@ -6,7 +6,7 @@
 // to create separate JavaScript files as needed.
 //
 //= require jquery-2.2.0.min
-//= require bootstrap
+//= require Bootstrap
 //= require_tree .
 //= require_self
 
