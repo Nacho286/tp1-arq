@@ -15,6 +15,14 @@ abstract class CategoryService {
 
     abstract Category save(Category category)
 
+    List<Category> findAll(){
+        return Category.findAll()
+    }
+
+    List<Category> findAllVisible(){
+        return Category.findAllByVisible(true)
+    }
+
     Category findByName(String name){
         return Category.findByName(name)
     }

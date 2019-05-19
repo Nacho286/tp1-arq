@@ -1,29 +1,31 @@
 <!DOCTYPE html>
 <head>
     <g:set var="markerService" bean="markerService"/>
-    <g:set var="markersList" value="${markerService.findAll()}"/>
     <g:set var="categoryService" bean="categoryService"/>
     <g:set var="categoryList" value="${categoryService.findAll()}"/>
     <meta name="layout" content="map">
 </head>
 <body>
-
+    <div id="prueba"></div>
     <div class="sidebar">
         <h2>Menu</h2>
-        <ul></ul>
+        <ul id="sidebar-list"></ul>
     </div>
 
     <div id="map"></div>
 
-    %{--<a href="javascript:void(0);" onclick="filter()"><i class="fas fa-filter" id="filter"></i></a>
+    <a href="javascript:void(0);" onclick="filter()"><i class="fas fa-filter" id="filter"></i></a>
     <div id="filter-popup">
-
-    </div>--}%
+        <h2>Filter</h2>
+        <g:each in="${categoryList}">
+            <input type="checkbox" value="${it.name}" checked>${it.name}<br>
+        </g:each>
+        <input type="button" value="Filter" onclick="fillMap()">
+    </div>
 
     <script>
-        function filter(){
-
-        }
+        var map;
+        var markers = [];
 
         function initMap(){
             // Map options
@@ -38,11 +40,25 @@
             };
 
             // New map
-            var map = new google.maps.Map(document.getElementById('map'), options);
+            map = new google.maps.Map(document.getElementById('map'), options);
+
+            fillMap();
+        }
+
+        function fillMap() {
             var sidebar = document.getElementsByClassName('sidebar').item(0);
+            var categoriesList = [];
+
+            deleteAllMarkers();
+
+            <g:each in="${categoryList}">
+                if ( document.getElementById('${it.name}') !== null && document.getElementById('${it.name}').checked ){
+                    categoriesList.push('${it.name}');
+                }
+            </g:each>
 
             // Add markers
-            <g:each in="${markersList}">
+            <g:each in="${markerService.findAll()}">
                 props = {
                     title:'${it.title}',
                     latitude:${it.latitude},
@@ -59,61 +75,85 @@
                     props.description = '${it.description}';
                 </g:if>
 
-                if(props.visible){
-                    addMarkerToList(props,sidebar);
-                    addMarker(props);
+                if(${it.visible} && ${it.category.visible}){
+                    if(isInArray('${it.category.name}',categoriesList)){
+                        addMarkerToList(props,sidebar);
+                        addMarker(props);
+                    }
                 }
             </g:each>
-
-            // Add Marker Function
-            function addMarker(props){
-                var marker = new google.maps.Marker({
-                    position:{lat:props.latitude,lng:props.longitude},
-                    map:map,
-                    category:props.category
-                });
-
-                // Check for customicon
-                if(props.iconImage){
-                    // Set icon image
-                    marker.setIcon(props.iconImage);
-                }
-
-                // Check content
-                var content = '<h3>' + props.title + '</h3>';
-                if(props.description){
-                    content = content + props.description;
-                }
-
-                var infoWindow = new google.maps.InfoWindow({
-                    content:content
-                });
-
-                marker.addListener('click', function(){
-                    infoWindow.open(map, marker);
-                    google.maps.event.addListener(map, 'click', function() {
-                        infoWindow.close();
-                    });
-                });
-            }
-
-            function addMarkerToList(props,sidebar){
-                var ul = document.getElementsByTagName('ul').item(0);
-                var li = document.createElement('li');
-                var a = document.createElement('a');
-                var h3 = document.createElement('h3');
-                var title = document.createTextNode(props.title);
-                h3.appendChild(title);
-                a.appendChild(h3);
-                if(props.description){
-                    var description = document.createTextNode(props.description);
-                    a.appendChild(description);
-                }
-                li.appendChild(a);
-                ul.appendChild(li);
-                sidebar.appendChild(ul);
-            }
         }
+
+        function isInArray(value, array) {
+            return array.indexOf(value) > -1;
+        }
+
+        // Add Marker Function
+        function addMarker(props){
+            var marker = new google.maps.Marker({
+                position:{lat:props.latitude,lng:props.longitude},
+                map:map,
+                category:props.category
+            });
+
+            // Check for customicon
+            if(props.iconImage){
+                // Set icon image
+                marker.setIcon(props.iconImage);
+            }
+
+            // Check content
+            var content = '<h3>' + props.title + '</h3>';
+            if(props.description){
+                content = content + props.description;
+            }
+
+            var infoWindow = new google.maps.InfoWindow({
+                content:content
+            });
+
+            marker.addListener('click', function(){
+                infoWindow.open(map, marker);
+                google.maps.event.addListener(map, 'click', function() {
+                    infoWindow.close();
+                });
+            });
+
+            markers.push(marker)
+        }
+
+        function addMarkerToList(props,sidebar){
+            var ul = document.getElementById('sidebar-list');
+            var li = document.createElement('li');
+            var a = document.createElement('a');
+            var h3 = document.createElement('h3');
+            var title = document.createTextNode(props.title);
+            h3.appendChild(title);
+            a.appendChild(h3);
+            if(props.description){
+                var description = document.createTextNode(props.description);
+                a.appendChild(description);
+            }
+            li.appendChild(a);
+            li.setAttribute('id',props.title);
+            ul.appendChild(li);
+            sidebar.appendChild(ul);
+        }
+
+        function deleteAllMarkers() {
+            var ul = document.getElementById('sidebar-list');
+            //Loop through all the markers and remove
+            var marker;
+            for (var i = 0; i < markers.length; i++) {
+                //Removing from sidebar-list
+                marker = document.getElementById(markers[i].title);
+                ul.removeChild(marker);
+                //Removing from map
+                marker.setMap(null);
+            }
+            markers = [];
+        }
+
     </script>
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDP827zHnIce50b1GTB8QPrHOUBFwcsGyw&callback=initMap">
