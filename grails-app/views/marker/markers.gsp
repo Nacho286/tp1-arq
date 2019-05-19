@@ -6,7 +6,6 @@
     <meta name="layout" content="map">
 </head>
 <body>
-    <div id="prueba"></div>
     <div class="sidebar">
         <h2>Menu</h2>
         <ul id="sidebar-list"></ul>
@@ -14,18 +13,23 @@
 
     <div id="map"></div>
 
-    <a href="javascript:void(0);" onclick="filter()"><i class="fas fa-filter" id="filter"></i></a>
-    <div id="filter-popup">
+    <div id="filter">
+        <a href="javascript:void(0);" onclick="showFilterMenu()">
+            <i class="fas fa-filter"></i>
+        </a>
+    </div>
+
+    <div id="filter-popup" style="display:none">
         <h2>Filter</h2>
         <g:each in="${categoryList}">
-            <input type="checkbox" value="${it.name}" checked>${it.name}<br>
+            <input type="checkbox" id="${it.name}" checked>${it.name}<br>
         </g:each>
         <input type="button" value="Filter" onclick="fillMap()">
     </div>
 
     <script>
         var map;
-        var markers = [];
+        var markersByTitle = [];
 
         function initMap(){
             // Map options
@@ -119,7 +123,11 @@
                 });
             });
 
-            markers.push(marker)
+            var dict = {
+                title : props.title,
+                mapMarker : marker
+            };
+            markersByTitle.push(dict)
         }
 
         function addMarkerToList(props,sidebar){
@@ -144,14 +152,32 @@
             var ul = document.getElementById('sidebar-list');
             //Loop through all the markers and remove
             var marker;
-            for (var i = 0; i < markers.length; i++) {
+            for (var i = 0; i < markersByTitle.length; i++) {
+                marker = markersByTitle[i];
                 //Removing from sidebar-list
-                marker = document.getElementById(markers[i].title);
-                ul.removeChild(marker);
+                removeElement(marker.title);
                 //Removing from map
-                marker.setMap(null);
+                (marker.mapMarker).setMap(null);
             }
-            markers = [];
+            markersByTitle = [];
+        }
+
+        function removeElement(id) {
+            var elem = document.getElementById(id);
+            return elem.parentNode.removeChild(elem);
+        }
+
+        function showFilterMenu() {
+            hideOrShowDiv('filter-popup')
+        }
+
+        function hideOrShowDiv(divId) {
+            var x = document.getElementById(divId);
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
         }
 
     </script>

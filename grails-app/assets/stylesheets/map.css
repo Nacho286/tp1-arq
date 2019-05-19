@@ -72,3 +72,20 @@ body {
     background: #333;
     color: #fff;
 }
+
+#filter{
+    position: fixed;
+    right:    10px;
+    bottom:   10px;
+    background: #333;
+    color: #fff;
+    z-index: 200; /*Momaso*/
+    padding: 10px;
+    margin: 10px;
+}
+
+#filter a{
+    display: block;
+    color: #fff;
+    text-decoration: none;
+}
