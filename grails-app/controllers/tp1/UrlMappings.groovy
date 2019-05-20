@@ -3,7 +3,7 @@ package tp1
 class UrlMappings {
 
     static mappings = {
-        "/$controller/$action?/$id?(.$format)?"{
+        "/$controller/$action?/$id?(.$format)?" {
             constraints {
                 // apply constraints here
             }
@@ -14,7 +14,11 @@ class UrlMappings {
             action = "markers"
         }
 
-        "500"(view:'/error')
-        "404"(view:'/notFound')
+        "/marker/saveNewMarker" {
+            controller = "Marker"
+            action = "saveNewMarker"
+        }
+        "500"(view: '/error')
+        "404"(view: '/notFound')
     }
 }

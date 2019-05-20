@@ -38,6 +38,11 @@ class MarkerController {
         }
     }
 
+    def saveNewMarker(){
+        markerService.saveNewMarker(params.name,params.description)
+        System.out.println("hola")
+    }
+
     def show(Long id) {
         respond markerService.get(id)
     }
