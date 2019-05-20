@@ -50,7 +50,9 @@
                 </g:each>
             </select>
             <g:actionSubmit type="submit" class="btn" controller="marker" action="saveNewMarker" value="Aceptar"/>
-            <button class="btn cancel" onclick="closeForm()">Cerrar</button>
+            <div>
+                <input type="button" class="btn cancel" value="Cerrar" onclick="closeForm()">
+            </div>
         </g:form>
     </div>
 
