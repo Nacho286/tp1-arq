@@ -9,13 +9,15 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	[pattern: '/error',          access: ['permitAll']],
 	[pattern: '/index',          access: ['permitAll']],
 	[pattern: '/index.gsp',      access: ['permitAll']],
-	[pattern: '/dbconsole/*',      access: ['permitAll']], /*Dejo esto para poder tocar la BD*/
 	[pattern: '/shutdown',       access: ['permitAll']],
 	[pattern: '/assets/**',      access: ['permitAll']],
 	[pattern: '/**/js/**',       access: ['permitAll']],
 	[pattern: '/**/css/**',      access: ['permitAll']],
 	[pattern: '/**/images/**',   access: ['permitAll']],
-	[pattern: '/**/favicon.ico', access: ['permitAll']]
+	[pattern: '/**/favicon.ico', access: ['permitAll']],
+	[pattern: '/dbconsole/*',      access: ['permitAll']], /*Dejo esto para poder tocar la BD*/
+	[pattern: '/marker/*', access: ['ROLE_USER','ROLE_ADMIN']],
+	[pattern: '/category/*', access: ['ROLE_ADMIN']]
 ]
 
 grails.plugin.springsecurity.filterChain.chainMap = [
