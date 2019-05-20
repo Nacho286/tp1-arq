@@ -39,6 +39,10 @@
             <label><b>Descripcion</b></label><br/>
             <g:textField name="description" placeholder="Contanos del lugar"/><br/>
 
+            <g:hiddenField id="lat" name="lat" value=""/><br/>
+
+            <g:hiddenField id="long" name="long" value=""/><br/>
+
             <select name="category" id="category">
                 <option value="">Categoria</option>
                 <g:each in="${categoryList}" status="i" var="category">
@@ -46,16 +50,13 @@
                 </g:each>
             </select>
             <g:actionSubmit type="submit" class="btn" controller="marker" action="saveNewMarker" value="Aceptar"/>
-            <div>
-                <input type="button" value="Cerrar" onclick="closeForm()">
-            </div>
+            <button class="btn cancel" onclick="closeForm()">Cerrar</button>
         </g:form>
     </div>
 
     <script>
         var map;
         var markersByTitle = [];
-        var newMarker;
 
         function initMap(){
             // Map options
@@ -177,7 +178,7 @@
 
 
             marker.addListener('click', function(){
-                openForm()
+                openForm(props.latitude,props.longitude)
                 google.maps.event.addListener(map, 'click', function() {
                     infoWindow.close();
                 });
@@ -236,7 +237,9 @@
             }
         }
 
-        function openForm() {
+        function openForm(lat,long) {
+            document.getElementById("lat").value = lat;
+            document.getElementById("long").value = long;
             document.getElementById("myForm").style.display = "block";
         }
 

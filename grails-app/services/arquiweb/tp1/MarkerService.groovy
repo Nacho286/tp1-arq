@@ -29,12 +29,14 @@ abstract class MarkerService {
         }
     }
 
-    void saveNewMarker(String title, String description,String categoryName) {
+    void saveNewMarker(String title, String description,String categoryName, double lat, double longi) {
         Category category = categoryService.findByName(categoryName)
         Marker marker = new Marker(title: title,
         description:description,
         visible: false,
-        category: category)
+        category: category,
+        latitude: lat,
+        longitude: longi)
 
         marker.save()
     }
