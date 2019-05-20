@@ -46,13 +46,16 @@
                 </g:each>
             </select>
             <g:actionSubmit type="submit" class="btn" controller="marker" action="saveNewMarker" value="Aceptar"/>
-            <button class="btn cancel" onclick="closeForm()">Cerrar</button>
+            <div>
+                <input type="button" value="Cerrar" onclick="closeForm()">
+            </div>
         </g:form>
     </div>
 
     <script>
         var map;
         var markersByTitle = [];
+        var newMarker;
 
         function initMap(){
             // Map options

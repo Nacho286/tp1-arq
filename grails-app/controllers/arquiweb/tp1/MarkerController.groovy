@@ -41,9 +41,8 @@ class MarkerController {
     }
 
     def saveNewMarker(){
-
         markerService.saveNewMarker(params.name,params.description,params.category)
-        System.out.println("hola")
+        redirect(uri: "/")
     }
 
     def show(Long id) {

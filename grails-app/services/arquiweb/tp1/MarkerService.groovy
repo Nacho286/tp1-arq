@@ -29,9 +29,9 @@ abstract class MarkerService {
         }
     }
 
-    void saveNewMarker(String name, String description,String categoryName) {
+    void saveNewMarker(String title, String description,String categoryName) {
         Category category = categoryService.findByName(categoryName)
-        Marker marker = new Marker(name: name,
+        Marker marker = new Marker(title: title,
         description:description,
         visible: false,
         category: category)
