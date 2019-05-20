@@ -10,6 +10,8 @@ class MarkerController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
+    static namespace = "marker"
+
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond markerService.list(params), model:[markerCount: markerService.count()]
@@ -39,7 +41,8 @@ class MarkerController {
     }
 
     def saveNewMarker(){
-        markerService.saveNewMarker(params.name,params.description)
+
+        markerService.saveNewMarker(params.name,params.description,params.category)
         System.out.println("hola")
     }
 

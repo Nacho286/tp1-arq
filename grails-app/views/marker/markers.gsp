@@ -30,7 +30,7 @@
     </div>
 
     <div class="form-popup" id="myForm">
-        <g:form controller="marker" action="saveNewMarker" class="form-container">
+        <g:form class="form-container">
             <h1>¿Queres agregar un lugar?</h1>
 
             <label><b>Nombre</b></label><br/>
@@ -42,11 +42,11 @@
             <select name="category" id="category">
                 <option value="">Categoria</option>
                 <g:each in="${categoryList}" status="i" var="category">
-                    <option value="${category.id}">${category.name}</option>
+                    <option value="${category.name}">${category.name}</option>
                 </g:each>
             </select>
-            <g:actionSubmit type="submit" class="btn" value="Aceptar"/>
-            <g:actionSubmit type="submit" class="btn cancel" value="Cerrar"/>
+            <g:actionSubmit type="submit" class="btn" controller="marker" action="saveNewMarker" value="Aceptar"/>
+            <button class="btn cancel" onclick="closeForm()">Cerrar</button>
         </g:form>
     </div>
 
