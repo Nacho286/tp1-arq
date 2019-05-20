@@ -1,6 +1,5 @@
 package arquiweb.tp1
 
-import grails.converters.JSON
 import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.*
 
@@ -37,8 +36,6 @@ class MarkerController {
             marker.setCategory(restoCategory)
             markerService.save(marker)
         }
-
-        respond markerService.list()
     }
 
     def show(Long id) {
