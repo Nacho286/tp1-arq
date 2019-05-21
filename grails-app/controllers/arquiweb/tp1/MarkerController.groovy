@@ -41,7 +41,7 @@ class MarkerController {
     }
 
     def saveNewMarker(){
-        markerService.saveNewMarker(params.name,params.description,params.category,Double.valueOf(params.lat),Double.valueOf(params.long))
+        markerService.saveNewMarker(params)
         redirect(uri: "/")
     }
 

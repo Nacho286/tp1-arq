@@ -39,6 +39,9 @@
             <label><b>Descripcion</b></label><br/>
             <g:textField name="description" placeholder="Contanos del lugar"/><br/>
 
+            <label><b>Mandanos una imagen</b></label><br/>
+            <g:textField name="imageLink" placeholder="Link"/><br/>
+
             <label><b>Categoria</b></label><br/>
             <select name="category" id="category">
                 <g:each in="${categoryList}" status="i" var="category">

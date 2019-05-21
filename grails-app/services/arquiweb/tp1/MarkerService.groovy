@@ -29,14 +29,16 @@ abstract class MarkerService {
         }
     }
 
-    void saveNewMarker(String title, String description,String categoryName, double lat, double longi) {
-        Category category = categoryService.findByName(categoryName)
-        Marker marker = new Marker(title: title,
-        description:description,
+    void saveNewMarker(def params) {
+
+        Category category = categoryService.findByName(params.category)
+        Marker marker = new Marker(title: params.name,
+        description:params.description,
         visible: false,
         category: category,
-        latitude: lat,
-        longitude: longi)
+        latitude: Double.valueOf(params.lat),
+        longitude: Double.valueOf(params.long),
+        imageLink: params.imageLink)
 
         marker.save()
     }
