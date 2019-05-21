@@ -4,6 +4,7 @@
     <g:set var="markersList" value="${markerService.findAll()}"/>
     <g:set var="categoryService" bean="categoryService"/>
     <g:set var="categoryList" value="${categoryService.findAll()}"/>
+    <g:set var="homeController" bean="homeController"/>
     <meta name="layout" content="map">
 </head>
 <body>
@@ -12,6 +13,7 @@
     <div class="sidebar">
         <h2>Puntos <br>de interes</h2>
         <ul id="sidebar-list"></ul>
+        <div style="position: absolute;bottom: 0;left: 0;"> <g:link controller='logout'>Logout</g:link> </div>
     </div>
 
     <div id="map"></div>
@@ -36,18 +38,20 @@
 
     <div id="filter-popup" style="display: none">
         <h2>Filter</h2>
-        <div id="spacer"></div>
+        <div class="spacer"></div>
         <g:each in="${categoryList}">
-            <input type="checkbox" id="${it.name}" checked>${it.name}<br>
+            <input type="checkbox" id="${it.name}" checked>${it.name}<br/>
         </g:each>
-        <button onclick="fillMap()"><h4>Filter</h4></button>
+        <button class="btn" onclick="fillMap()"><h4>Filter</h4></button>
+        <button class="btn cancel" onclick="showFilterMenu()"><h4>Close</h4></button>
     </div>
 
     <div id="search-popup" style="display: none">
         <h2>Search</h2>
-        <div id="spacer-search"></div>
-        <input type="text" id="search-name"><br/>
-        <button onclick="searchMap()"><h4>Search</h4></button>
+        <div class="spacer"></div>
+        <input type="text" id="search-name" placeholder="Nombre"><br/>
+        <button class="btn" onclick="searchMap()"><h4>Search</h4></button>
+        <button class="btn cancel" onclick="showSearchMenu()"><h4>Close</h4></button>
     </div>
 
     <div class="form-popup" id="place-form">
@@ -71,7 +75,7 @@
             </select>
             <g:actionSubmit type="submit" class="btn" controller="marker" action="saveNewMarker" value="Aceptar"/>
             <div>
-                <input type="button" class="btn cancel" value="Cerrar" onclick="closeForm()">
+                <input type="button" class="btn cancel" value="Close" onclick="closeForm()">
             </div>
 
             <g:hiddenField id="lat" name="lat" value="" display="none"/>
@@ -100,9 +104,17 @@
     <script>
         var map;
         var markersByTitle = [];
-        var marker
+        var marker;
+
+        // Chequear en que role se esta
+        if(isInArray('ROLE_USER','${homeController.getUserRoles()}')){
+            console.log('si')
+        }else{
+            console.log('no')
+        }
 
         function initMap(){
+
             // Map options
             var bsas = {lat:-34.603722,lng:-58.381592};
             var options = {
@@ -118,10 +130,12 @@
             map = new google.maps.Map(document.getElementById('map'), options);
 
             // Listen for click on map
-            google.maps.event.addListener(map, 'click', function(event){
-                // Add marker
-                addNewMarker({latitude:event.latLng.lat(),longitude:event.latLng.lng()});
-            });
+            if(!isInArray('ROLE_GUEST','${homeController.getUserRoles()}')){
+                google.maps.event.addListener(map, 'click', function(event){
+                    // Add marker
+                    addNewMarker({latitude:event.latLng.lat(),longitude:event.latLng.lng()});
+                });
+            }
 
             fillMap();
         }
@@ -134,7 +148,6 @@
             <g:each in="${categoryList}">
                 if ( document.getElementById('${it.name}') !== null && document.getElementById('${it.name}').checked ){
                     categoriesList.push('${it.name}');
-
                 }
             </g:each>
 
@@ -154,6 +167,10 @@
 
                 <g:if test="${it.description}">
                     props.description = '${it.description}';
+                </g:if>
+
+                <g:if test="${it.imageLink}">
+                props.imageLink = '${it.imageLink}';
                 </g:if>
 
                 if(${it.visible} && ${it.category.visible}){
@@ -200,6 +217,10 @@
                     props.description = '${it.description}';
                     </g:if>
 
+                    <g:if test="${it.imageLink}">
+                    props.imageLink = '${it.imageLink}';
+                    </g:if>
+
                     if(${it.visible} && ${it.category.visible}){
                         if(isInArray('${it.category.name}',categoriesList)){
                             addMarkerToList(props,sidebar);
@@ -232,6 +253,10 @@
             var content = '<h3>' + props.title + '</h3>';
             if(props.description){
                 content = content + props.description;
+            }
+            console.log(props.imageLink !== 'undefined' );
+            if(typeof props.imageLink !== 'undefined' ){
+                content = content + '<div class="img"><img src=' + props.imageLink + '></div>';
             }
 
             var infoWindow = new google.maps.InfoWindow({
@@ -272,12 +297,7 @@
 
             marker.addListener('click', function(){
                 openForm(props.latitude,props.longitude)
-                google.maps.event.addListener(map, 'click', function() {
-                    infoWindow.close();
-                });
             });
-
-
         }
 
         function addMarkerToList(props,sidebar){

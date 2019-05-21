@@ -1,6 +1,7 @@
 package arquiweb.tp1
 
 import arquiweb.tp1.auth.*
+import arquiweb.tp1.*
 
 class BootStrap {
     def authenticateService
@@ -23,6 +24,23 @@ class BootStrap {
         UserRole.create jcUser, userRole, true
         UserRole.create florUser, adminRole, true
 
+        println 'Initializing categories...'
+
+        def restoCategory = new Category(
+                ['name'  : 'Restaurantes',
+                 approved: true]
+        )
+        restoCategory.save(flush: true, failOnError: true)
+
+
+        def markerPrueba = new Marker(
+                [title      : 'Resto',
+                 latitude   : -34.603722,
+                 longitude  : -58.381592,
+                 description: 'Restorante 1',
+                 visible    : true])
+        markerPrueba.setCategory(restoCategory)
+        markerPrueba.save(flush: true, failOnError: true)
     }
     def destroy = {
     }

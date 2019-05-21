@@ -4,6 +4,7 @@
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'arquiweb.tp1.auth.User'
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'arquiweb.tp1.auth.UserRole'
 grails.plugin.springsecurity.authority.className = 'arquiweb.tp1.auth.Role'
+grails.plugin.springsecurity.logout.postOnly = false
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	[pattern: '/',               access: ['permitAll']],
 	[pattern: '/error',          access: ['permitAll']],
@@ -16,6 +17,7 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	[pattern: '/**/images/**',   access: ['permitAll']],
 	[pattern: '/**/favicon.ico', access: ['permitAll']],
 	[pattern: '/dbconsole/*',      access: ['permitAll']], /*Dejo esto para poder tocar la BD*/
+	[pattern: '/marker/markers', access: ['permitAll']],
 	[pattern: '/marker/*', access: ['ROLE_USER','ROLE_ADMIN']],
 	[pattern: '/category/*', access: ['ROLE_ADMIN']]
 ]
