@@ -58,6 +58,7 @@
     <script>
         var map;
         var markersByTitle = [];
+        var marker
 
         function initMap(){
             // Map options
@@ -128,7 +129,7 @@
 
         // Add Marker Function
         function addMarker(props){
-            var marker = new google.maps.Marker({
+            var newMarker = new google.maps.Marker({
                 position:{lat:props.latitude,lng:props.longitude},
                 map:map,
                 category:props.category
@@ -137,7 +138,7 @@
             // Check for customicon
             if(props.iconImage){
                 // Set icon image
-                marker.setIcon(props.iconImage);
+                newMarker.setIcon(props.iconImage);
             }
 
             // Check content
@@ -150,7 +151,7 @@
                 content:content
             });
 
-            marker.addListener('click', function(){
+            newMarker.addListener('click', function(){
                 infoWindow.open(map, marker);
                 google.maps.event.addListener(map, 'click', function() {
                     infoWindow.close();
@@ -159,17 +160,21 @@
 
             var dict = {
                 title : props.title,
-                mapMarker : marker
+                mapMarker : newMarker
             };
             markersByTitle.push(dict)
         }
 
         // Add Marker Function
         function addNewMarker(props){
-            var marker = new google.maps.Marker({
-                position:{lat:props.latitude,lng:props.longitude},
-                map:map
-            });
+            if ( marker ) {
+                marker.setPosition({lat:props.latitude,lng:props.longitude});
+            } else {
+                marker = new google.maps.Marker({
+                    position:{lat:props.latitude,lng:props.longitude},
+                    map:map
+                });
+            }
 
             // Check for customicon
             if(props.iconImage){
