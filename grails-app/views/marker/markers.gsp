@@ -4,6 +4,7 @@
     <g:set var="markersList" value="${markerService.findAll()}"/>
     <g:set var="categoryService" bean="categoryService"/>
     <g:set var="categoryList" value="${categoryService.findAll()}"/>
+    <g:set var="homeController" bean="homeController"/>
     <meta name="layout" content="map">
 </head>
 <body>
@@ -31,7 +32,7 @@
 
     <div id="filter-popup" style="display: none">
         <h2>Filter</h2>
-        <div id="spacer"></div>
+        <div class="spacer"></div>
         <g:each in="${categoryList}">
             <input type="checkbox" id="${it.name}" checked>${it.name}<br>
         </g:each>
@@ -40,8 +41,8 @@
 
     <div id="search-popup" style="display: none">
         <h2>Search</h2>
-        <div id="spacer-search"></div>
-        <input type="text" id="search-name"><br/>
+        <div class="spacer"></div>
+        <input type="text" id="search-name" placeholder="Nombre"><br/>
         <button onclick="searchMap()"><h4>Search</h4></button>
     </div>
 
@@ -79,7 +80,14 @@
         var markersByTitle = [];
         var marker
 
+        if(isInArray('ROLE_USER','${homeController.getUserRoles()}')){
+            console.log('si')
+        }else{
+            console.log('no')
+        }
+
         function initMap(){
+
             // Map options
             var bsas = {lat:-34.603722,lng:-58.381592};
             var options = {

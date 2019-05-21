@@ -58,64 +58,6 @@ body {
     margin-left: 250px;
 }
 
-#filter-popup h2{
-    text-align: center;
-    padding: 10px;
-    margin: 0;
-    background: #2a2a2a;
-}
-
-#filter-popup{
-    position: fixed;
-    top:50%;
-    left:50%;
-    background: #333;
-    color: #fff;
-}
-
-#search-popup h2{
-    text-align: center;
-    padding: 10px;
-    margin: 0;
-    background: #2a2a2a;
-}
-
-#search-popup{
-    position: fixed;
-    top:50%;
-    left:50%;
-    background: #333;
-    color: #fff;
-}
-
-#filter{
-    position: fixed;
-    right:    10px;
-    bottom:   10px;
-    background: #333;
-    color: #fff;
-    z-index: 200; /*Momaso*/
-    padding: 10px;
-    margin: 10px;
-}
-
-#search{
-    position: fixed;
-    right:    10px;
-    bottom:   50px;
-    background: #333;
-    color: #fff;
-    z-index: 200; /*Momaso*/
-    padding: 10px;
-    margin: 10px;
-}
-
-#filter a{
-    display: block;
-    color: #fff;
-    text-decoration: none;
-}
-
 /*prueba form*/
 
 {box-sizing: border-box;}
@@ -173,16 +115,9 @@ body {
     -moz-appearance: none;
 }
 
-#filter-popup input{
-    text-align: center;
-    outline: 1px solid #2a2a2a;
-    margin: 5px 30px 5px 30px;
-    font-size: 40px;
-}
-
 /* When the inputs get focus, do something */
 .form-container input[type=text]:focus, .form-container input[type=list]:focus {
-    background-color: #ddd;
+    background-color: #777;
     outline: none;
 }
 
@@ -207,4 +142,145 @@ body {
 /* Add some hover effects to buttons */
 .form-container .btn:hover, .open-button:hover {
     opacity: 1;
+}
+
+#filter{
+    position: fixed;
+    right:    80px;
+    bottom:   10px;
+    background: #333;
+    color: #fff;
+    z-index: 200; /*Momaso*/
+    padding: 20px;
+    margin: 20px;
+    font-size: 20px;
+    -webkit-box-shadow: 0px 0px 32px -9px rgba(0,0,0,0.3);
+    -moz-box-shadow: 0px 0px 32px -9px rgba(0,0,0,0.3);
+    box-shadow: 0px 0px 32px -9px rgba(0,0,0,0.3)
+}
+
+#filter a{
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px;
+    margin: -10px;
+}
+
+#filter-popup{
+    position: fixed;
+    width: 300px;
+    height: 300px;
+    top:30%;
+    left:40%;
+    background: #333;
+    margin: 0;
+    color: #fff;
+    outline: 1px solid #2a2a2a;
+    -webkit-box-shadow: 0px 0px 32px -9px rgba(0,0,0,0.6);
+    -moz-box-shadow: 0px 0px 32px -9px rgba(0,0,0,0.6);
+    box-shadow: 0px 0px 32px -9px rgba(0,0,0,0.6);
+}
+
+#filter-popup h2{
+    text-align: center;
+    padding: 10px;
+    margin: 0;
+    background: #2a2a2a;
+}
+
+#filter-popup input{
+    text-align: center;
+    outline: 1px solid #2a2a2a;
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 40px;
+}
+
+#filter-popup button{
+    text-align: center;
+    position: relative;
+    left:35%;
+    outline: 1px solid #2a2a2a;
+    padding-left: 30px;
+    padding-right: 30px;
+    margin-top: 20px;
+    font-size: 13px;
+}
+
+.spacer{
+    padding: 10px;
+}
+
+#search{
+    position: fixed;
+    right:    10px;
+    bottom:   10px;
+    background: #333;
+    color: #fff;
+    z-index: 200; /*Momaso*/
+    padding: 20px;
+    margin: 20px;
+    font-size: 20px;
+    -webkit-box-shadow: 0px 0px 32px -9px rgba(0,0,0,0.3);
+    -moz-box-shadow: 0px 0px 32px -9px rgba(0,0,0,0.3);
+    box-shadow: 0px 0px 32px -9px rgba(0,0,0,0.3)
+}
+
+#search a{
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px;
+    margin: -10px;
+}
+
+#search-popup{
+    position: fixed;
+    width: 300px;
+    height: 300px;
+    top:30%;
+    left:40%;
+    background: #333;
+    margin: 0;
+    color: #fff;
+    outline: 1px solid #2a2a2a;
+    -webkit-box-shadow: 0px 0px 32px -9px rgba(0,0,0,0.6);
+    -moz-box-shadow: 0px 0px 32px -9px rgba(0,0,0,0.6);
+    box-shadow: 0px 0px 32px -9px rgba(0,0,0,0.6);
+}
+
+#search-popup h2 {
+    text-align: center;
+    padding: 10px;
+    margin: 0;
+    background: #2a2a2a;
+}
+
+#search-popup button{
+    text-align: center;
+    position: relative;
+    left:32%;
+    outline: 1px solid #2a2a2a;
+    padding-left: 30px;
+    padding-right: 30px;
+    margin-top: 20px;
+    font-size: 13px;
+}
+
+#search-popup input[type="text"]{
+    width: 86%;
+    padding: 15px;
+    margin: 5px 20px 22px 20px;
+    border: none;
+    background: #555;
+    color: #fff;
+}
+
+/* When the inputs get focus, do something */
+#search-popup input[type=text]:focus {
+    background-color: #777;
+    outline: none;
 }
