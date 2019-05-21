@@ -10,6 +10,8 @@ class MarkerController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
+    static namespace = "marker"
+
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond markerService.list(params), model:[markerCount: markerService.count()]
@@ -36,6 +38,11 @@ class MarkerController {
             marker.setCategory(restoCategory)
             markerService.save(marker)
         }
+    }
+
+    def saveNewMarker(){
+        markerService.saveNewMarker(params)
+        redirect(uri: "/")
     }
 
     def show(Long id) {

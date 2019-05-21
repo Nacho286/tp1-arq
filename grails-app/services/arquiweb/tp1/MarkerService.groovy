@@ -16,17 +16,31 @@ abstract class MarkerService {
 
     abstract Marker save(Marker marker)
 
-    List<Marker> findAll(){
+    List<Marker> findAll() {
         return Marker.findAll()
     }
 
-    List<Marker> findAllByCategoryName(String categoryName){
+    List<Marker> findAllByCategoryName(String categoryName) {
         Category category = categoryService.findByName(categoryName)
         if (category) {
             return Marker.findAllByCategory(category)
         } else {
             return null
         }
+    }
+
+    void saveNewMarker(def params) {
+
+        Category category = categoryService.findByName(params.category)
+        Marker marker = new Marker(title: params.name,
+        description:params.description,
+        visible: false,
+        category: category,
+        latitude: Double.valueOf(params.lat),
+        longitude: Double.valueOf(params.long),
+        imageLink: params.imageLink)
+
+        marker.save()
     }
 
 }

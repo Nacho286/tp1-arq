@@ -6,6 +6,8 @@
     <meta name="layout" content="map">
 </head>
 <body>
+
+
     <div class="sidebar">
         <h2>Puntos <br>de interes</h2>
         <ul id="sidebar-list"></ul>
@@ -28,9 +30,39 @@
         <button onclick="fillMap()"><h4>Filter</h4></button>
     </div>
 
+    <div class="form-popup" id="myForm">
+        <g:form class="form-container">
+            <h1>¿Queres agregar un lugar?</h1>
+
+            <label><b>Nombre</b></label><br/>
+            <g:textField name="name" placeholder="Nombre del lugar"/><br/>
+
+            <label><b>Descripcion</b></label><br/>
+            <g:textField name="description" placeholder="Contanos del lugar"/><br/>
+
+            <label><b>Mandanos una imagen</b></label><br/>
+            <g:textField name="imageLink" placeholder="Link"/><br/>
+
+            <label><b>Categoria</b></label><br/>
+            <select name="category" id="category">
+                <g:each in="${categoryList}" status="i" var="category">
+                    <option value="${category.name}">${category.name}</option>
+                </g:each>
+            </select>
+            <g:actionSubmit type="submit" class="btn" controller="marker" action="saveNewMarker" value="Aceptar"/>
+            <div>
+                <input type="button" class="btn cancel" value="Cerrar" onclick="closeForm()">
+            </div>
+
+            <g:hiddenField id="lat" name="lat" value="" display="none"/>
+            <g:hiddenField id="long" name="long" value="" display="none"/>
+        </g:form>
+    </div>
+
     <script>
         var map;
         var markersByTitle = [];
+        var marker
 
         function initMap(){
             // Map options
@@ -47,6 +79,12 @@
             // New map
             map = new google.maps.Map(document.getElementById('map'), options);
 
+            // Listen for click on map
+            google.maps.event.addListener(map, 'click', function(event){
+                // Add marker
+                addNewMarker({latitude:event.latLng.lat(),longitude:event.latLng.lng()});
+            });
+
             fillMap();
         }
 
@@ -55,13 +93,13 @@
             var categoriesList = [];
 
             deleteAllMarkers();
-
             <g:each in="${categoryList}">
                 if ( document.getElementById('${it.name}') !== null && document.getElementById('${it.name}').checked ){
                     categoriesList.push('${it.name}');
+
                 }
             </g:each>
-
+            console.log(categoriesList)
             // Add markers
             <g:each in="${markerService.findAll()}">
                 props = {
@@ -95,7 +133,7 @@
 
         // Add Marker Function
         function addMarker(props){
-            var marker = new google.maps.Marker({
+            var newMarker = new google.maps.Marker({
                 position:{lat:props.latitude,lng:props.longitude},
                 map:map,
                 category:props.category
@@ -104,7 +142,7 @@
             // Check for customicon
             if(props.iconImage){
                 // Set icon image
-                marker.setIcon(props.iconImage);
+                newMarker.setIcon(props.iconImage);
             }
 
             // Check content
@@ -117,7 +155,7 @@
                 content:content
             });
 
-            marker.addListener('click', function(){
+            newMarker.addListener('click', function(){
                 infoWindow.open(map, marker);
                 google.maps.event.addListener(map, 'click', function() {
                     infoWindow.close();
@@ -126,9 +164,37 @@
 
             var dict = {
                 title : props.title,
-                mapMarker : marker
+                mapMarker : newMarker
             };
             markersByTitle.push(dict)
+        }
+
+        // Add Marker Function
+        function addNewMarker(props){
+            if ( marker ) {
+                marker.setPosition({lat:props.latitude,lng:props.longitude});
+            } else {
+                marker = new google.maps.Marker({
+                    position:{lat:props.latitude,lng:props.longitude},
+                    map:map
+                });
+            }
+
+            // Check for customicon
+            if(props.iconImage){
+                // Set icon image
+                marker.setIcon(props.iconImage);
+            }
+
+
+            marker.addListener('click', function(){
+                openForm(props.latitude,props.longitude)
+                google.maps.event.addListener(map, 'click', function() {
+                    infoWindow.close();
+                });
+            });
+
+
         }
 
         function addMarkerToList(props,sidebar){
@@ -179,6 +245,16 @@
             } else {
                 x.style.display = "none";
             }
+        }
+
+        function openForm(lat,long) {
+            document.getElementById("lat").value = lat;
+            document.getElementById("long").value = long;
+            document.getElementById("myForm").style.display = "block";
+        }
+
+        function closeForm() {
+            document.getElementById("myForm").style.display = "none";
         }
 
     </script>
