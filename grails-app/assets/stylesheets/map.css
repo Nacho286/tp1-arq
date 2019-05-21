@@ -113,10 +113,7 @@ body {
 #filter-popup input{
     text-align: center;
     outline: 1px solid #2a2a2a;
-    margin-left: 30px;
-    margin-right: 30px;
-    margin-top: 5px;
-    margin-bottom: 5px;
+    margin: 5px 30px 5px 30px;
     font-size: 40px;
 }
 

@@ -2,7 +2,7 @@
 grails:
     profile: web
     codegen:
-        defaultPackage: tp1
+        defaultPackage: arquiweb.tp1
     gorm:
         reactor:
             # Whether to translate GORM events into Reactor events
