@@ -1,4 +1,4 @@
-package tp1
+package arquiweb.tp1
 
 import grails.boot.GrailsApp
 import grails.boot.config.GrailsAutoConfiguration
