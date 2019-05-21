@@ -173,6 +173,13 @@ body {
     -moz-appearance: none;
 }
 
+#filter-popup input{
+    text-align: center;
+    outline: 1px solid #2a2a2a;
+    margin: 5px 30px 5px 30px;
+    font-size: 40px;
+}
+
 /* When the inputs get focus, do something */
 .form-container input[type=text]:focus, .form-container input[type=list]:focus {
     background-color: #ddd;
