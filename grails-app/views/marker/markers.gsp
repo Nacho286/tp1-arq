@@ -12,6 +12,7 @@
     <div class="sidebar">
         <h2>Puntos <br>de interes</h2>
         <ul id="sidebar-list"></ul>
+        <div style="position: absolute;bottom: 0;left: 0;"> <g:link controller='logout'>Logout</g:link> </div>
     </div>
 
     <div id="map"></div>
