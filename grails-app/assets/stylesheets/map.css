@@ -134,11 +134,6 @@ body {
     font-size: 14px;
 }
 
-/* Add a red background color to the cancel button */
-.form-container .cancel {
-    background-color: red;
-}
-
 /* Add some hover effects to buttons */
 .form-container .btn:hover, .open-button:hover {
     opacity: 1;
@@ -240,7 +235,7 @@ body {
 #search-popup{
     position: fixed;
     width: 300px;
-    height: 300px;
+    height: 350px;
     top:30%;
     left:40%;
     background: #333;
@@ -283,4 +278,63 @@ body {
 #search-popup input[type=text]:focus {
     background-color: #777;
     outline: none;
+}
+
+/* Set a style for the submit/login button */
+#filter-popup .btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 5px;
+    border: none;
+    cursor: pointer;
+    width: 80%;
+    margin-bottom:0;
+    margin-left:-73px;
+    opacity: 0.8;
+    font-size: 14px;
+
+}
+
+/* Set a style for the submit/login button */
+#search-popup .btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 5px;
+    border: none;
+    cursor: pointer;
+    width: 80%;
+    margin-bottom:0;
+    margin-left:-66px;
+    opacity: 0.8;
+    font-size: 14px;
+
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+    background-color: red;
+}
+
+#search-popup .cancel {
+    background-color: red;
+}
+
+#filter-popup .cancel{
+    background-color: red;
+}
+
+/* Add some hover effects to buttons */
+#search-popup .btn:hover, #filter-popup .btn:hover {
+    opacity: 1;
+}
+
+.img {
+    position: relative;
+    height: 200px;
+    width: 200px;
+    overflow: hidden;
+}
+
+.img img {
+    width: 100%;
 }
