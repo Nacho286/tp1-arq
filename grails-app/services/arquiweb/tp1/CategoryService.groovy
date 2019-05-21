@@ -27,4 +27,11 @@ abstract class CategoryService {
         return Category.findByName(name)
     }
 
+    void saveNewCategory(def params){
+        Category category = new Category(name:params.name,
+            visible: false,
+            iconImage: params.imageLink
+        )
+        category.save()
+    }
 }

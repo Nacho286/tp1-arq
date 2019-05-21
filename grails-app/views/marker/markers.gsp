@@ -28,6 +28,12 @@
         </a>
     </div>
 
+    <div id="categoryAdd">
+        <a href="javascript:void(0);" onclick="showCategoryForm()">
+            <i class="fas fa-plus"></i>
+        </a>
+    </div>
+
     <div id="filter-popup" style="display: none">
         <h2>Filter</h2>
         <div id="spacer"></div>
@@ -44,7 +50,7 @@
         <button onclick="searchMap()"><h4>Search</h4></button>
     </div>
 
-    <div class="form-popup" id="myForm">
+    <div class="form-popup" id="place-form">
         <g:form class="form-container">
             <h1>¿Queres agregar un lugar?</h1>
 
@@ -70,6 +76,24 @@
 
             <g:hiddenField id="lat" name="lat" value="" display="none"/>
             <g:hiddenField id="long" name="long" value="" display="none"/>
+        </g:form>
+    </div>
+
+    <div class="form-popup" id="category-form">
+        <g:form class="form-container">
+            <h1>¿Queres agregar una categoria?</h1>
+
+            <label><b>Nombre</b></label><br/>
+            <g:textField name="name" placeholder="Nombre de la categoria"/><br/>
+
+            <label><b>Mandanos una imagen</b></label><br/>
+            <g:textField name="imageLink" placeholder="Link"/><br/>
+
+            <g:actionSubmit type="submit" class="btn" controller="category" action="saveNewCategory" value="Aceptar"/>
+            <div>
+                <input type="button" class="btn cancel" value="Cerrar" onclick="closeCategoryForm()">
+            </div>
+
         </g:form>
     </div>
 
@@ -301,6 +325,10 @@
             hideOrShowDiv('search-popup')
         }
 
+        function showCategoryForm() {
+            hideOrShowDiv('category-form')
+        }
+
         function hideOrShowDiv(divId) {
             var x = document.getElementById(divId);
             if (x.style.display === "none") {
@@ -313,11 +341,15 @@
         function openForm(lat,long) {
             document.getElementById("lat").value = lat;
             document.getElementById("long").value = long;
-            document.getElementById("myForm").style.display = "block";
+            document.getElementById("place-form").style.display = "block";
         }
 
         function closeForm() {
-            document.getElementById("myForm").style.display = "none";
+            document.getElementById("place-form").style.display = "none";
+        }
+
+        function closeCategoryForm() {
+            document.getElementById("category-form").style.display = "none";
         }
 
     </script>

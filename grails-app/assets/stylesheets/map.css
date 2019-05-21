@@ -110,6 +110,17 @@ body {
     margin: 10px;
 }
 
+#categoryAdd{
+    position: fixed;
+    right:    10px;
+    bottom:   90px;
+    background: #333;
+    color: #fff;
+    z-index: 200; /*Momaso*/
+    padding: 10px;
+    margin: 10px;
+}
+
 #filter a{
     display: block;
     color: #fff;

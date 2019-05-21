@@ -9,15 +9,23 @@ class UrlMappings {
             }
         }
 
-        "/" {
-            controller = "Marker"
-            action = "markers"
-        }
+
 
         "/marker/saveNewMarker" {
             controller = "Marker"
             action = "saveNewMarker"
         }
+
+        "/category/saveNewCategory" {
+            controller = "Category"
+            action = "saveNewCategory"
+        }
+
+        "/" {
+            controller = "Marker"
+            action = "markers"
+        }
+
         "500"(view: '/error')
         "404"(view: '/notFound')
     }

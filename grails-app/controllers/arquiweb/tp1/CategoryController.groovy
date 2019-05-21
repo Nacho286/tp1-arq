@@ -7,6 +7,8 @@ class CategoryController {
 
     CategoryService categoryService
 
+    static namespace = "category"
+
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
@@ -20,6 +22,11 @@ class CategoryController {
 
     def create() {
         respond new Category(params)
+    }
+
+    def saveNewCategory(){
+        categoryService.saveNewCategory(params)
+        redirect(uri: "/")
     }
 
     def save(Category category) {
