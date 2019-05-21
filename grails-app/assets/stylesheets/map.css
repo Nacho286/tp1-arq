@@ -73,10 +73,36 @@ body {
     color: #fff;
 }
 
+#search-popup h2{
+    text-align: center;
+    padding: 10px;
+    margin: 0;
+    background: #2a2a2a;
+}
+
+#search-popup{
+    position: fixed;
+    top:50%;
+    left:50%;
+    background: #333;
+    color: #fff;
+}
+
 #filter{
     position: fixed;
     right:    10px;
     bottom:   10px;
+    background: #333;
+    color: #fff;
+    z-index: 200; /*Momaso*/
+    padding: 10px;
+    margin: 10px;
+}
+
+#search{
+    position: fixed;
+    right:    10px;
+    bottom:   50px;
     background: #333;
     color: #fff;
     z-index: 200; /*Momaso*/
