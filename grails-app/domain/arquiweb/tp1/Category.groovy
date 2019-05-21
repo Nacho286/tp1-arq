@@ -4,10 +4,14 @@ class Category {
 
     String name
     //icon ENUM?
-    Boolean visible
-    Boolean approved
+    String iconImage
+    Boolean visible = true
+    Boolean approved = false
+
+    static hasMany = [markers: Marker]
 
     static constraints = {
         name size: 5..100, blank: false, unique: true
+        iconImage nullable: true
     }
 }

@@ -6,12 +6,36 @@ import static org.springframework.http.HttpStatus.*
 class MarkerController {
 
     MarkerService markerService
+    CategoryService categoryService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond markerService.list(params), model:[markerCount: markerService.count()]
+    }
+
+    def markers() {
+        Category restoCategory = Category.findByName('Restaurantes')
+        if(!restoCategory){
+            restoCategory = new Category(
+                    ['name':'Restaurantes',
+                     approved:true]
+            )
+            categoryService.save(restoCategory)
+        }
+
+        Marker restoMarker = Marker.findByTitle('Resto')
+        if(!restoMarker){
+            Marker marker = new Marker(
+                    [title:'Resto',
+                     latitude:-34.603722,
+                     longitude:-58.381592,
+                     description:'Prueba',
+                     visible:true])
+            marker.setCategory(restoCategory)
+            markerService.save(marker)
+        }
     }
 
     def show(Long id) {
