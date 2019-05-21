@@ -21,7 +21,7 @@ abstract class MarkerService {
     }
 
     List<Marker> findByName(String name){
-        return Marker.findByTitle(name)
+        return Marker.findAllByTitle(name)
     }
 
     List<Marker> findAllByCategoryName(String categoryName) {
