@@ -317,7 +317,10 @@
             a.appendChild(h3);
             a.appendChild(h4);
             if(props.description){
-                var description = document.createTextNode(props.description);
+                var description = document.createElement('h4');
+                description.setAttribute('id','description');
+                var descriptionText = document.createTextNode(props.description);
+                description.appendChild(descriptionText);
                 a.appendChild(description);
             }
             if(props.imageLink){

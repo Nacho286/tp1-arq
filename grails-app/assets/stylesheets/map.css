@@ -43,7 +43,21 @@ body {
 }
 
 .sidebar li h3{
-    padding: 0;
+    margin-left: 6px;
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+.sidebar li h4{
+    margin-top: -20px;
+    margin-left: 10px;
+    color: #aaa;
+}
+
+.sidebar li #description{
+    margin-top: -5px;
+    margin-left: 10px;
+    color: #ddd;
 }
 
 .sidebar a{
@@ -219,7 +233,8 @@ body {
 #filter-popup{
     position: fixed;
     width: 300px;
-    height: 300px;
+    height: 400px;
+    flex-direction: column;
     top:30%;
     left:40%;
     background: #333;
