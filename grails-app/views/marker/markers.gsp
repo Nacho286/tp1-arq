@@ -39,12 +39,8 @@
             <label><b>Descripcion</b></label><br/>
             <g:textField name="description" placeholder="Contanos del lugar"/><br/>
 
-            <g:hiddenField id="lat" name="lat" value=""/><br/>
-
-            <g:hiddenField id="long" name="long" value=""/><br/>
-
+            <label><b>Categoria</b></label><br/>
             <select name="category" id="category">
-                <option value="">Categoria</option>
                 <g:each in="${categoryList}" status="i" var="category">
                     <option value="${category.name}">${category.name}</option>
                 </g:each>
@@ -53,6 +49,9 @@
             <div>
                 <input type="button" class="btn cancel" value="Cerrar" onclick="closeForm()">
             </div>
+
+            <g:hiddenField id="lat" name="lat" value="" display="none"/>
+            <g:hiddenField id="long" name="long" value="" display="none"/>
         </g:form>
     </div>
 
