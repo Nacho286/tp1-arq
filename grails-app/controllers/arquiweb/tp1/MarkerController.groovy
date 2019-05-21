@@ -16,26 +16,7 @@ class MarkerController {
     }
 
     def markers() {
-        Category restoCategory = Category.findByName('Restaurantes')
-        if(!restoCategory){
-            restoCategory = new Category(
-                    ['name':'Restaurantes',
-                     approved:true]
-            )
-            categoryService.save(restoCategory)
-        }
-
-        Marker restoMarker = Marker.findByTitle('Resto')
-        if(!restoMarker){
-            Marker marker = new Marker(
-                    [title:'Resto',
-                     latitude:-34.603722,
-                     longitude:-58.381592,
-                     description:'Prueba',
-                     visible:true])
-            marker.setCategory(restoCategory)
-            markerService.save(marker)
-        }
+        //No saco el metodo porq no se donde se esta usando. Pero pase la creacion de la categoria y el mark a Bootstrap.groovy
     }
 
     def show(Long id) {
