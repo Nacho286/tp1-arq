@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <head>
     <g:set var="markerService" bean="markerService"/>
+    <g:set var="markersList" value="${markerService.findAll()}"/>
     <g:set var="categoryService" bean="categoryService"/>
     <g:set var="categoryList" value="${categoryService.findAll()}"/>
     <meta name="layout" content="map">
@@ -15,6 +16,12 @@
 
     <div id="map"></div>
 
+    <div id="search">
+        <a href="javascript:void(0);" onclick="showSearchMenu()">
+            <i class="fas fa-search"></i>
+        </a>
+    </div>
+
     <div id="filter">
         <a href="javascript:void(0);" onclick="showFilterMenu()">
             <i class="fas fa-filter"></i>
@@ -28,6 +35,13 @@
             <input type="checkbox" id="${it.name}" checked>${it.name}<br>
         </g:each>
         <button onclick="fillMap()"><h4>Filter</h4></button>
+    </div>
+
+    <div id="search-popup" style="display: none">
+        <h2>Search</h2>
+        <div id="spacer-search"></div>
+        <input type="text" id="search-name"><br/>
+        <button onclick="searchMap()"><h4>Search</h4></button>
     </div>
 
     <div class="form-popup" id="myForm">
@@ -99,9 +113,9 @@
 
                 }
             </g:each>
-            console.log(categoriesList)
+
             // Add markers
-            <g:each in="${markerService.findAll()}">
+            <g:each in="${markersList}">
                 props = {
                     title:'${it.title}',
                     latitude:${it.latitude},
@@ -122,6 +136,51 @@
                     if(isInArray('${it.category.name}',categoriesList)){
                         addMarkerToList(props,sidebar);
                         addMarker(props);
+                    }
+                }
+            </g:each>
+        }
+
+        function searchMap() {
+            console.log("busco un lugar ");
+            var sidebar = document.getElementsByClassName('sidebar').item(0);
+            var nameSearch = document.getElementById('search-name').value;
+            deleteAllMarkers();
+            var categoriesList = [];
+
+            <g:each in="${categoryList}">
+            if ( document.getElementById('${it.name}') !== null && document.getElementById('${it.name}').checked ){
+                categoriesList.push('${it.name}');
+
+            }
+            </g:each>
+
+            console.log("busco un lugar " + nameSearch);
+
+            // Add markers
+            <g:each in="${markersList}">
+                if(nameSearch === '${it.title}'){
+                    props = {
+                        title:'${it.title}',
+                        latitude:${it.latitude},
+                        longitude:${it.longitude},
+                        visible:${it.visible},
+                        name:'${it.category.name}'
+                    };
+
+                    <g:if test="${it.category.iconImage}">
+                    props.iconImage = '${it.category.iconImage}';
+                    </g:if>
+
+                    <g:if test="${it.description}">
+                    props.description = '${it.description}';
+                    </g:if>
+
+                    if(${it.visible} && ${it.category.visible}){
+                        if(isInArray('${it.category.name}',categoriesList)){
+                            addMarkerToList(props,sidebar);
+                            addMarker(props);
+                        }
                     }
                 }
             </g:each>
@@ -236,6 +295,10 @@
 
         function showFilterMenu() {
             hideOrShowDiv('filter-popup')
+        }
+
+        function showSearchMenu() {
+            hideOrShowDiv('search-popup')
         }
 
         function hideOrShowDiv(divId) {
