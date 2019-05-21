@@ -13,7 +13,15 @@
     <div class="sidebar">
         <h2>Puntos <br>de interes</h2>
         <ul id="sidebar-list"></ul>
-        <div style="position: absolute;bottom: 0;left: 0;"> <g:link controller='logout'>Logout</g:link> </div>
+        <g:if test="${"ROLE_GUEST" in homeController.getUserRoles()}">
+            <div id="log-in">
+                <a href="login/auth"><i class="fas fa-sign-in-alt"></i>
+                </a>
+            </div>
+        </g:if>
+        <g:else>
+            <div id="log-out"> <g:link controller='logout'><i class="fas fa-sign-out-alt"></i></g:link> </div>
+        </g:else>
     </div>
 
     <div id="map"></div>
@@ -30,13 +38,19 @@
         </a>
     </div>
 
+    <div id="reset">
+        <a href="javascript:void(0);" onclick="resetMap()">
+            <i class="fas fa-undo"></i>
+        </a>
+    </div>
+
     <div id="filter-popup" style="display: none">
         <h2>Filter</h2>
         <div class="spacer"></div>
         <g:each in="${categoryList}">
             <input type="checkbox" id="${it.name}" checked>${it.name}<br/>
         </g:each>
-        <button class="btn" onclick="fillMap()"><h4>Filter</h4></button>
+        <button class="btn" onclick="filterMap()"><h4>Filter</h4></button>
         <button class="btn cancel" onclick="showFilterMenu()"><h4>Close</h4></button>
     </div>
 
@@ -116,6 +130,11 @@
             fillMap();
         }
 
+        function filterMap(){
+            fillMap();
+            showFilterMenu();
+        }
+
         function fillMap() {
             var sidebar = document.getElementsByClassName('sidebar').item(0);
             var categoriesList = [];
@@ -138,11 +157,68 @@
                 };
 
                 <g:if test="${it.category.iconImage}">
-                    props.iconImage = '${it.category.iconImage}';
+                    var parser = new DOMParser;
+                    var dom = parser.parseFromString(
+                        '<!doctype html><body>' + '${it.category.iconImage}',
+                        'text/html');
+                    props.iconImage = dom.body.textContent;
                 </g:if>
 
                 <g:if test="${it.description}">
                     props.description = '${it.description}';
+                </g:if>
+
+                <g:if test="${it.imageLink}">
+                props.imageLink = '${it.imageLink}';
+                </g:if>
+
+                if(${it.visible} && ${it.approved} && ${it.category.visible} && ${it.category.approved}){
+                    if(isInArray('${it.category.name}',categoriesList)){
+                        addMarkerToList(props,sidebar);
+                        addMarker(props);
+                    }
+                }
+            </g:each>
+        }
+
+        function searchMap() {
+            var nameSearch = document.getElementById('search-name').value;
+            searchMapByName(nameSearch)
+            showSearchMenu()
+        }
+
+        function searchMapByName(nameSearch) {
+            var sidebar = document.getElementsByClassName('sidebar').item(0);
+            deleteAllMarkers();
+            var categoriesList = [];
+
+            <g:each in="${categoryList}">
+            if ( document.getElementById('${it.name}') !== null && document.getElementById('${it.name}').checked ){
+                categoriesList.push('${it.name}');
+            }
+            </g:each>
+
+            // Add markers
+            <g:each in="${markersList}">
+            if(nameSearch === '${it.title}'){
+                props = {
+                    title:'${it.title}',
+                    latitude:${it.latitude},
+                    longitude:${it.longitude},
+                    visible:${it.visible},
+                    name:'${it.category.name}'
+                };
+
+                <g:if test="${it.category.iconImage}">
+                var parser = new DOMParser;
+                var dom = parser.parseFromString(
+                    '<!doctype html><body>' + '${it.category.iconImage}',
+                    'text/html');
+                props.iconImage = dom.body.textContent;
+                </g:if>
+
+                <g:if test="${it.description}">
+                props.description = '${it.description}';
                 </g:if>
 
                 <g:if test="${it.imageLink}">
@@ -155,55 +231,7 @@
                         addMarker(props);
                     }
                 }
-            </g:each>
-        }
-
-        function searchMap() {
-            console.log("busco un lugar ");
-            var sidebar = document.getElementsByClassName('sidebar').item(0);
-            var nameSearch = document.getElementById('search-name').value;
-            deleteAllMarkers();
-            var categoriesList = [];
-
-            <g:each in="${categoryList}">
-            if ( document.getElementById('${it.name}') !== null && document.getElementById('${it.name}').checked ){
-                categoriesList.push('${it.name}');
-
             }
-            </g:each>
-
-            console.log("busco un lugar " + nameSearch);
-
-            // Add markers
-            <g:each in="${markersList}">
-                if(nameSearch === '${it.title}'){
-                    props = {
-                        title:'${it.title}',
-                        latitude:${it.latitude},
-                        longitude:${it.longitude},
-                        visible:${it.visible},
-                        name:'${it.category.name}'
-                    };
-
-                    <g:if test="${it.category.iconImage}">
-                    props.iconImage = '${it.category.iconImage}';
-                    </g:if>
-
-                    <g:if test="${it.description}">
-                    props.description = '${it.description}';
-                    </g:if>
-
-                    <g:if test="${it.imageLink}">
-                    props.imageLink = '${it.imageLink}';
-                    </g:if>
-
-                    if(${it.visible} && ${it.category.visible}){
-                        if(isInArray('${it.category.name}',categoriesList)){
-                            addMarkerToList(props,sidebar);
-                            addMarker(props);
-                        }
-                    }
-                }
             </g:each>
         }
 
@@ -240,10 +268,7 @@
             });
 
             newMarker.addListener('click', function(){
-                infoWindow.open(map, marker);
-                google.maps.event.addListener(map, 'click', function() {
-                    infoWindow.close();
-                });
+                searchMapByName(props.title);
             });
 
             var dict = {
@@ -281,12 +306,27 @@
             var li = document.createElement('li');
             var a = document.createElement('a');
             var h3 = document.createElement('h3');
+            var h4 = document.createElement('h4');
             var title = document.createTextNode(props.title);
+            var categoryName = document.createTextNode(props.name);
             h3.appendChild(title);
+            h4.appendChild(categoryName)
+            a.addEventListener('click', function() {
+                searchMapByName(props.title);
+            }, false);
             a.appendChild(h3);
+            a.appendChild(h4);
             if(props.description){
                 var description = document.createTextNode(props.description);
                 a.appendChild(description);
+            }
+            if(props.imageLink){
+                var divImg = document.createElement('div');
+                var img = document.createElement('img');
+                divImg.setAttribute('class','img-sidebar');
+                img.setAttribute('src',props.imageLink);
+                divImg.appendChild(img);
+                a.appendChild(divImg);
             }
             li.appendChild(a);
             li.setAttribute('id',props.title);
@@ -297,15 +337,19 @@
         function deleteAllMarkers() {
             var ul = document.getElementById('sidebar-list');
             //Loop through all the markers and remove
-            var marker;
+            var tmpMarker;
             for (var i = 0; i < markersByTitle.length; i++) {
-                marker = markersByTitle[i];
+                tmpMarker = markersByTitle[i];
                 //Removing from sidebar-list
-                removeElement(marker.title);
+                removeElement(tmpMarker.title);
                 //Removing from map
-                (marker.mapMarker).setMap(null);
+                (tmpMarker.mapMarker).setMap(null);
             }
             markersByTitle = [];
+
+            if(marker){
+                marker.setMap(null);
+            }
         }
 
         function removeElement(id) {
@@ -338,6 +382,13 @@
 
         function closeForm() {
             document.getElementById("myForm").style.display = "none";
+        }
+
+        function resetMap(){
+            <g:each in="${categoryList}">
+            document.getElementById('${it.name}').checked = true;
+            </g:each>
+            fillMap()
         }
 
     </script>

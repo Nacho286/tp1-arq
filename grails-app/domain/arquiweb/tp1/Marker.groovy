@@ -7,14 +7,15 @@ class Marker {
     double longitude
     String description
     Boolean visible
+    Boolean approved
     String imageLink
 
     static belongsTo = Category
     static hasOne = [category: Category]
 
     static constraints = {
-        title size: 5..255, blank: false
+        title size: 3..255, blank: false, unique: true
         description maxSize: 255, nullable: true
-        imageLink nullable: true
+        imageLink nullable: true, type: 'text'
     }
 }

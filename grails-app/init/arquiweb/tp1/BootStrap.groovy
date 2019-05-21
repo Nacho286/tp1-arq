@@ -27,20 +27,76 @@ class BootStrap {
         println 'Initializing categories...'
 
         def restoCategory = new Category(
-                ['name'  : 'Restaurantes',
-                 approved: true]
+                ['name'  : 'Restaurant',
+                 approved: true,
+                 iconImage: 'https://www.google.com/maps/vt/icon/name=assets/icons/poi/tactile/pinlet_shadow-2-medium.png,assets/icons/poi/tactile/pinlet_outline_v2-2-medium.png,assets/icons/poi/tactile/pinlet-2-medium.png,assets/icons/poi/quantum/pinlet/restaurant_pinlet-2-medium.png&highlight=ff000000,ffffff,db4437,ffffff&color=ff000000?scale=1.3',
+                 visible: true]
         )
+        def barCategory = new Category(
+                ['name'  : 'Bar',
+                 approved: true,
+                 iconImage: 'https://www.google.com/maps/vt/icon/name=assets/icons/poi/tactile/pinlet_shadow-2-medium.png,assets/icons/poi/tactile/pinlet_outline_v2-2-medium.png,assets/icons/poi/tactile/pinlet-2-medium.png,assets/icons/poi/quantum/pinlet/bar_pinlet-2-medium.png&highlight=ff000000,ffffff,db4437,ffffff&color=ff000000?scale=1.3',
+                 visible: true]
+        )
+        def fastFoodCategory = new Category(
+                ['name'  : 'Comida Rapida',
+                 approved: true,
+                    iconImage: 'https://www.google.com/maps/vt/icon/name=assets/icons/poi/tactile/pinlet_shadow-2-medium.png,assets/icons/poi/tactile/pinlet_outline_v2-2-medium.png,assets/icons/poi/tactile/pinlet-2-medium.png,assets/icons/poi/quantum/pinlet/restaurant_pinlet-2-medium.png&highlight=ff000000,ffffff,ffa100,ffffff&color=ff000000?scale=1.3',
+                 visible: true]
+        )
+        def cafeCategory = new Category(
+                ['name'  : 'Cafeteria',
+                 approved: true,
+                 iconImage: 'https://www.google.com/maps/vt/icon/name=assets/icons/poi/tactile/pinlet_shadow-2-medium.png,assets/icons/poi/tactile/pinlet_outline_v2-2-medium.png,assets/icons/poi/tactile/pinlet-2-medium.png,assets/icons/poi/quantum/pinlet/cafe_pinlet-2-medium.png&highlight=ff000000,ffffff,db4437,ffffff&color=ff000000?scale=1.3',
+                 visible: true]
+        )
+
         restoCategory.save(flush: true, failOnError: true)
+        barCategory.save(flush: true, failOnError: true)
+        fastFoodCategory.save(flush: true, failOnError: true)
+        cafeCategory.save(flush: true, failOnError: true)
 
-
-        def markerPrueba = new Marker(
-                [title      : 'Resto',
+        def restoMarker = new Marker(
+                [title      : 'Parrilla Lo de Hugo',
                  latitude   : -34.603722,
                  longitude  : -58.381592,
-                 description: 'Restorante 1',
-                 visible    : true])
-        markerPrueba.setCategory(restoCategory)
-        markerPrueba.save(flush: true, failOnError: true)
+                 description: 'Parrilla de comida rica y barata',
+                 imageLink  : 'https://i.argentino.com.ar/images/2016/1017/964598-parrilla-lo-de-hugo-20161017071109108.jpg',
+                 category   : restoCategory,
+                 visible    : true,
+                 approved   : true])
+        def barMarker = new Marker(
+                [title      : 'Growlers',
+                 latitude   : -34.595026,
+                 longitude  : -58.387621,
+                 description: 'Bar de birras vintage',
+                 imageLink  : 'http://salpimenta.com.ar/wp-content/uploads/2016/11/unnamed.jpg',
+                 category   : barCategory,
+                 visible    : true,
+                 approved   : true])
+        def mcDonaldsMarker = new Marker(
+                [title      : 'McDonalds',
+                 latitude   : -34.5589874,
+                 longitude  : -58.4456127,
+                 description: 'Lugar de comida rapida yankee',
+                 imageLink  : 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/McDonalds_Museum.jpg/300px-McDonalds_Museum.jpg',
+                 category   : fastFoodCategory,
+                 visible    : true,
+                 approved   : true])
+        def starbucksMarker = new Marker(
+                [title      : 'StarBucks Belgrano',
+                 latitude   : -34.554921,
+                 longitude  : -58.449336,
+                 description: 'Cafe yankee bien rico',
+                 imageLink  : 'http://salpimenta.com.ar/wp-content/uploads/2018/07/starbucks_15_970x597.jpeg',
+                 category   : cafeCategory,
+                 visible    : true,
+                 approved   : true])
+
+        restoMarker.save(flush: true, failOnError: true)
+        barMarker.save(flush: true, failOnError: true)
+        mcDonaldsMarker.save(flush: true, failOnError: true)
+        starbucksMarker.save(flush: true, failOnError: true)
     }
     def destroy = {
     }

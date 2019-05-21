@@ -11,7 +11,7 @@ class Category {
     static hasMany = [markers: Marker]
 
     static constraints = {
-        name size: 5..100, blank: false, unique: true
-        iconImage nullable: true
+        name blank: false, unique: true
+        iconImage nullable: true, type: 'text'
     }
 }
