@@ -17,9 +17,11 @@ body {
 
 .sidebar h2{
     text-align: center;
-    padding: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     margin: 0;
     background: #2a2a2a;
+    font-weight: 900;
 }
 
 .sidebar ul{

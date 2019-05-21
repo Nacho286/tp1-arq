@@ -11,7 +11,7 @@
 
 
     <div class="sidebar">
-        <h2>Puntos <br>de interes</h2>
+        <h2>Puntos <br> de interes</h2>
         <ul id="sidebar-list"></ul>
         <g:if test="${"ROLE_GUEST" in homeController.getUserRoles()}">
             <div id="log-in">
@@ -200,38 +200,38 @@
 
             // Add markers
             <g:each in="${markersList}">
-            if(nameSearch === '${it.title}'){
-                props = {
-                    title:'${it.title}',
-                    latitude:${it.latitude},
-                    longitude:${it.longitude},
-                    visible:${it.visible},
-                    name:'${it.category.name}'
-                };
+                if(('${it.title}'.toLowerCase()).includes(nameSearch.toLowerCase())){
+                    props = {
+                        title:'${it.title}',
+                        latitude:${it.latitude},
+                        longitude:${it.longitude},
+                        visible:${it.visible},
+                        name:'${it.category.name}'
+                    };
 
-                <g:if test="${it.category.iconImage}">
-                var parser = new DOMParser;
-                var dom = parser.parseFromString(
-                    '<!doctype html><body>' + '${it.category.iconImage}',
-                    'text/html');
-                props.iconImage = dom.body.textContent;
-                </g:if>
+                    <g:if test="${it.category.iconImage}">
+                    var parser = new DOMParser;
+                    var dom = parser.parseFromString(
+                        '<!doctype html><body>' + '${it.category.iconImage}',
+                        'text/html');
+                    props.iconImage = dom.body.textContent;
+                    </g:if>
 
-                <g:if test="${it.description}">
-                props.description = '${it.description}';
-                </g:if>
+                    <g:if test="${it.description}">
+                    props.description = '${it.description}';
+                    </g:if>
 
-                <g:if test="${it.imageLink}">
-                props.imageLink = '${it.imageLink}';
-                </g:if>
+                    <g:if test="${it.imageLink}">
+                    props.imageLink = '${it.imageLink}';
+                    </g:if>
 
-                if(${it.visible} && ${it.category.visible}){
-                    if(isInArray('${it.category.name}',categoriesList)){
-                        addMarkerToList(props,sidebar);
-                        addMarker(props);
+                    if(${it.visible} && ${it.category.visible}){
+                        if(isInArray('${it.category.name}',categoriesList)){
+                            addMarkerToList(props,sidebar);
+                            addMarker(props);
+                        }
                     }
                 }
-            }
             </g:each>
         }
 
