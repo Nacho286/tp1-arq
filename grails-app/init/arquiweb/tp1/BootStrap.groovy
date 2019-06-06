@@ -26,22 +26,29 @@ class BootStrap {
 
         println 'Initializing categories...'
 
-        def restoCategory = new Category(
-                ['name'  : 'Restaurantes',
-                 approved: true]
-        )
-        restoCategory.save(flush: true, failOnError: true)
+        def categoryNames = ['Restaurante', 'Farmacia', 'Supermercado', 'Dietetica', 'Carniceria']
 
+        for (c in categoryNames) {
 
-        def markerPrueba = new Marker(
-                [title      : 'Resto',
-                 latitude   : -34.603722,
-                 longitude  : -58.381592,
-                 description: 'Restorante 1',
-                 visible    : true])
-        markerPrueba.setCategory(restoCategory)
-        markerPrueba.save(flush: true, failOnError: true)
+            def cat = new Category(
+                    ['name'  : c,
+                     approved: true]
+            )
+            cat.save(flush: true, failOnError: true)
+
+            for (i in 1..5) {
+                def markerPrueba = new Marker(
+                        [title      : c[0..4] + '_' + i,
+                         latitude   : -34.603722,
+                         longitude  : -58.381592,
+                         description: c + ' ' + i,
+                         visible    : true])
+                markerPrueba.setCategory(cat)
+                markerPrueba.save(flush: true, failOnError: true)
+            }
+        }
     }
+
     def destroy = {
     }
 }
