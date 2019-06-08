@@ -50,11 +50,18 @@ class BootStrap {
                  iconImage: 'https://www.google.com/maps/vt/icon/name=assets/icons/poi/tactile/pinlet_shadow-2-medium.png,assets/icons/poi/tactile/pinlet_outline_v2-2-medium.png,assets/icons/poi/tactile/pinlet-2-medium.png,assets/icons/poi/quantum/pinlet/cafe_pinlet-2-medium.png&highlight=ff000000,ffffff,db4437,ffffff&color=ff000000?scale=1.3',
                  visible: true]
         )
+        def schoolCategory = new Category(
+                ['name'  : 'Universidad',
+                 approved: true,
+                 iconImage: 'https://www.google.com/maps/vt/icon/name=assets/icons/poi/tactile/pinlet_shadow-2-medium.png,assets/icons/poi/tactile/pinlet_outline_v2-2-medium.png,assets/icons/poi/tactile/pinlet-2-medium.png,assets/icons/poi/quantum/pinlet/school_pinlet-2-medium.png&highlight=ff000000,ffffff,db4437,ffffff&color=ff000000?scale=1.3',
+                 visible: true]
+        )
 
         restoCategory.save(flush: true, failOnError: true)
         barCategory.save(flush: true, failOnError: true)
         fastFoodCategory.save(flush: true, failOnError: true)
         cafeCategory.save(flush: true, failOnError: true)
+        schoolCategory.save(flush: true, failOnError: true)
 
         def restoMarker = new Marker(
                 [title      : 'Parrilla Lo de Hugo',
@@ -83,6 +90,14 @@ class BootStrap {
                  category   : fastFoodCategory,
                  visible    : true,
                  approved   : true])
+        def burgerMarker = new Marker(
+                [title      : 'El Burger',
+                 latitude   : -34.560060,
+                 longitude  : -58.458322,
+                 category   : fastFoodCategory,
+                 visible    : true,
+                 approved   : true]
+        )
         def starbucksMarker = new Marker(
                 [title      : 'StarBucks Belgrano',
                  latitude   : -34.554921,
@@ -92,11 +107,23 @@ class BootStrap {
                  category   : cafeCategory,
                  visible    : true,
                  approved   : true])
+        def facuMarker = new Marker(
+                [title      : 'Pabellon 1, FCEN, UBA',
+                 latitude   : -34.544406,
+                 longitude  : -58.439539,
+                 description: 'La mejor facultad del condado',
+                 imageLink  : 'https://s3-sa-east-1.amazonaws.com/modernabuenosaires/img/obras/galeria/157_1408998107.jpg',
+                 category   : schoolCategory,
+                 visible    : true,
+                 approved   : true])
+
 
         restoMarker.save(flush: true, failOnError: true)
         barMarker.save(flush: true, failOnError: true)
         mcDonaldsMarker.save(flush: true, failOnError: true)
         starbucksMarker.save(flush: true, failOnError: true)
+        facuMarker.save(flush: true, failOnError: true)
+        burgerMarker.save(flush: true, failOnError: true)
     }
     def destroy = {
     }
