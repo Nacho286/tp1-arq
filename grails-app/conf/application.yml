@@ -108,7 +108,7 @@ environments:
     production:
         dataSource:
             dbCreate: none
-            url: jdbc:mysql://localhost:3306/arquiweb_db
+            url: jdbc:mysql://35.194.31.12:3306/arquiweb_db_prod
             properties:
                 jmxEnabled: true
                 initialSize: 5
