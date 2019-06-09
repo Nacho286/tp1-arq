@@ -1,6 +1,9 @@
 package arquiweb.tp1
 
 import grails.validation.ValidationException
+
+import javax.swing.plaf.synth.SynthOptionPaneUI
+
 import static org.springframework.http.HttpStatus.*
 
 class MarkerController {
@@ -12,6 +15,7 @@ class MarkerController {
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
+//        def ourMarkers = markerService.list(params).each { it.source= SourcePlatform.GROUP_1 }
         respond markerService.list(params), model:[markerCount: markerService.count()]
     }
 
@@ -102,3 +106,4 @@ class MarkerController {
         }
     }
 }
+
