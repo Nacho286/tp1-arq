@@ -8,8 +8,6 @@
     <meta name="layout" content="map">
 </head>
 <body>
-
-
     <div class="sidebar">
         <h2>Puntos <br> de interes</h2>
         <ul id="sidebar-list"></ul>
@@ -92,16 +90,22 @@
     </div>
 
     <script>
+        var xmlhttp = new XMLHttpRequest();
+        var url = "http://localhost:8080/category/index.json";
+        var categoriesArray;
+
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                categoriesArray = JSON.parse(this.responseText);
+            }
+        };
+        xmlhttp.open("GET", url, true);
+        xmlhttp.send();
+
+
         var map;
         var markersByTitle = [];
         var marker;
-
-        // Chequear en que role se esta
-        if(isInArray('ROLE_USER','${homeController.getUserRoles()}')){
-            console.log('si')
-        }else{
-            console.log('no')
-        }
 
         function initMap(){
 
@@ -169,7 +173,7 @@
                 </g:if>
 
                 <g:if test="${it.imageLink}">
-                props.imageLink = '${it.imageLink}';
+                    props.imageLink = '${it.imageLink}';
                 </g:if>
 
                 if(${it.visible} && ${it.approved} && ${it.category.visible} && ${it.category.approved}){
@@ -395,6 +399,7 @@
         }
 
     </script>
+
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDP827zHnIce50b1GTB8QPrHOUBFwcsGyw&callback=initMap">
     </script>

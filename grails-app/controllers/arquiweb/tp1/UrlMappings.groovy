@@ -20,5 +20,15 @@ class UrlMappings {
         }
         "500"(view: '/error')
         "404"(view: '/notFound')
+
+
+
+        "/markers"(controller: "External", parseRequest: true){
+            action = [GET: 'listMarkers', OPTIONS: "options"]
+        }
+
+        "/categories"(controller: "External", parseRequest: true){
+            action = [GET: 'listCategories', OPTIONS: "options"]
+        }
     }
 }

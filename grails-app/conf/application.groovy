@@ -6,6 +6,8 @@ grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'arquiweb.tp1.a
 grails.plugin.springsecurity.authority.className = 'arquiweb.tp1.auth.Role'
 grails.plugin.springsecurity.logout.postOnly = false
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
+	[pattern: '/markers', 		 access: ['permitAll']],
+	[pattern: '/categories', 	 access: ['permitAll']],
 	[pattern: '/',               access: ['permitAll']],
 	[pattern: '/error',          access: ['permitAll']],
 	[pattern: '/index',          access: ['permitAll']],
@@ -16,10 +18,10 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	[pattern: '/**/css/**',      access: ['permitAll']],
 	[pattern: '/**/images/**',   access: ['permitAll']],
 	[pattern: '/**/favicon.ico', access: ['permitAll']],
-	[pattern: '/dbconsole/*',      access: ['permitAll']], /*Dejo esto para poder tocar la BD*/
+	[pattern: '/dbconsole/*',	 access: ['permitAll']], /*Dejo esto para poder tocar la BD*/
 	[pattern: '/marker/markers', access: ['permitAll']],
-	[pattern: '/marker/*', access: ['ROLE_USER','ROLE_ADMIN']],
-	[pattern: '/category/*', access: ['ROLE_ADMIN']]
+	[pattern: '/marker/*', 		 access: ['ROLE_USER','ROLE_ADMIN']],
+	[pattern: '/category/*', 	 access: ['ROLE_ADMIN']]
 ]
 
 grails.plugin.springsecurity.filterChain.chainMap = [
@@ -28,6 +30,7 @@ grails.plugin.springsecurity.filterChain.chainMap = [
 	[pattern: '/**/css/**',      filters: 'none'],
 	[pattern: '/**/images/**',   filters: 'none'],
 	[pattern: '/**/favicon.ico', filters: 'none'],
-	[pattern: '/**',             filters: 'JOINED_FILTERS']
+	[pattern: '/marker/*',       filters: 'JOINED_FILTERS'],
+	[pattern: '/category/*',     filters: 'JOINED_FILTERS']
 ]
 
