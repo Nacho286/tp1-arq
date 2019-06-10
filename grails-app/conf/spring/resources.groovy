@@ -1,3 +1,4 @@
+import arquiweb.tp1.BlackListController
 import arquiweb.tp1.HomeController
 import arquiweb.tp1.ExternalController
 
@@ -7,4 +8,5 @@ beans = {
     userPasswordEncoderListener(UserPasswordEncoderListener)
     homeController(HomeController)
     externalController(ExternalController)
+    blackListController(BlackListController)
 }
