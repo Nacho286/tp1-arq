@@ -79,7 +79,7 @@ class BootStrap {
                  category   : restoCategory,
                  visible    : true,
                  approved   : true])
-        
+
         def barMarker = new Marker(
                 [title      : 'Growlers',
                  latitude   : -34.595026,
@@ -137,6 +137,7 @@ class BootStrap {
         facuMarker.save(flush: true, failOnError: true)
         burgerMarker.save(flush: true, failOnError: true)
     }
+
     def destroy = {
     }
 }
