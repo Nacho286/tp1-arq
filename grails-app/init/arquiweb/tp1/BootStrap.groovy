@@ -2,11 +2,18 @@ package arquiweb.tp1
 
 import arquiweb.tp1.auth.*
 import arquiweb.tp1.*
+import grails.util.Environment
 
 class BootStrap {
     def authenticateService
 
     def init = { servletContext ->
+
+        if (Environment.current == Environment.PRODUCTION) {
+            //en produ no creo nada
+            return
+        }
+
         println 'Initializing users..'
 
         def adminRole = new Role(authority: 'ROLE_ADMIN').save(flush: true)
