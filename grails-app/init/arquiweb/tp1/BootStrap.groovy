@@ -7,6 +7,7 @@ class BootStrap {
     def authenticateService
 
     def init = { servletContext ->
+
         println 'Initializing users..'
 
         def adminRole = new Role(authority: 'ROLE_ADMIN').save(flush: true)
