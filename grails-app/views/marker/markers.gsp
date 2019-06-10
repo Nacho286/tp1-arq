@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <head>
     <g:set var="markerService" bean="markerService"/>
-    <g:set var="markersList" value="${markerService.findAll()}"/>
     <g:set var="categoryService" bean="categoryService"/>
-    <g:set var="categoryList" value="${categoryService.findAll()}"/>
+    <g:set var="externalController" bean="externalController"/>
+    <g:set var="markersList" value="${externalController.getAllMarkers()}"/>
+    <g:set var="categoryList" value="${externalController.getAllCategories()}"/>
     <g:set var="homeController" bean="homeController"/>
     <meta name="layout" content="map">
 </head>

@@ -9,6 +9,7 @@ class Marker {
     Boolean visible
     Boolean approved
     String imageLink
+    Long appId = 8295
 
     static belongsTo = Category
     static hasOne = [category: Category]
