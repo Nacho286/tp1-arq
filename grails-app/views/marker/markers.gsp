@@ -92,7 +92,7 @@
     </div>
 
     <script>
-        var xmlhttp = new XMLHttpRequest();
+        /*var xmlhttp = new XMLHttpRequest();
         var url = "http://localhost:8080/category/index.json";
         var categoriesArray;
 
@@ -102,7 +102,7 @@
             }
         };
         xmlhttp.open("GET", url, true);
-        xmlhttp.send();
+        xmlhttp.send();*/
 
 
         var map;
