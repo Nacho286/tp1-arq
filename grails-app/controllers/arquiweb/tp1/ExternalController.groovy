@@ -109,7 +109,7 @@ class ExternalController {
     def getLugarcitosMarkers() {
         RestBuilder rest = new RestBuilder()
 
-        JSONElement markersJson = rest.get('https://lugarcitos.herokuapp.com/api/find_markers?title=') {
+        JSONElement markersJson = rest.get('https://lugarcitos.herokuapp.com/api/markers') {
         }.json
 
         JSONElement categoriesJson = rest.get('https://lugarcitos.herokuapp.com/api/marker_types') {
