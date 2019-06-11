@@ -35,6 +35,7 @@ grails.plugin.springsecurity.filterChain.chainMap = [
 		[pattern: '/markers', 		 filters: 'none'],
 		[pattern: '/categories', 	 filters: 'none'],
 		[pattern: '/search*', 	 	 filters: 'none'],
+		[pattern: '/blackList/**', 	 filters: 'none'],
 		[pattern: '/**',             filters: 'JOINED_FILTERS']
 ]
 

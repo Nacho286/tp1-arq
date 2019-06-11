@@ -31,7 +31,14 @@ class ExternalController {
         List<Marker> markers = Marker.findAll()
         markers = markers + getWalterMarkers() + getLugarcitosMarkers()
 
-        return markers
+        List<Marker> finalMarkers = []
+        for(marker in markers){
+            if(!BlackList.findByAppIdAndMarkerId(marker.appId,marker.title)){
+                finalMarkers.add(marker)
+            }
+        }
+
+        return finalMarkers
     }
 
     def getAllCategories() {
@@ -43,11 +50,11 @@ class ExternalController {
 
     def getAllExternalMarkers() {
 
-        return getWalterMarkers()
+        return getWalterMarkers() + getLugarcitosMarkers()
     }
 
     def getAllExternalCategories() {
-        return getWalterCategories()
+        return getWalterCategories() + getLugarcitosCategories()
     }
 
     def getWalterMarkers() {
@@ -99,7 +106,7 @@ class ExternalController {
     }
 
 
-    def getLugarcitosMarkers(){
+    def getLugarcitosMarkers() {
         RestBuilder rest = new RestBuilder()
 
         JSONElement markersJson = rest.get('https://lugarcitos.herokuapp.com/api/find_markers?title=') {
@@ -117,7 +124,6 @@ class ExternalController {
         }
 
 
-
         List<Marker> markersList = []
 
         for (markerJson in markersJson) {
@@ -132,7 +138,7 @@ class ExternalController {
         return markersList
     }
 
-    def getLugarcitosCategories(){
+    def getLugarcitosCategories() {
         RestBuilder rest = new RestBuilder()
 
         JSONElement categoriesJson = rest.get('https://lugarcitos.herokuapp.com/api/marker_types') {
