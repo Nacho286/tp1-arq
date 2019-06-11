@@ -31,6 +31,10 @@ class UrlMappings {
             action = [GET: 'listCategories', OPTIONS: "options"]
         }
 
+        "/extmarker"(controller: "External", parseRequest: true){
+            action = [GET: 'listCategories', OPTIONS: "options"]
+        }
+
         "/search"(controller: "External", parseRequest: true){
             action = [GET: 'searchMarkers', OPTIONS: "options"]
         }

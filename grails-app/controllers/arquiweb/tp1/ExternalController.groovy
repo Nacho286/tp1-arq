@@ -21,7 +21,7 @@ class ExternalController {
     def searchMarkers() {
         response.status = HttpServletResponse.SC_OK
         String title = params.title
-        if(!params.title){
+        if (!params.title) {
             title = ""
         }
         return render(Marker.findAllByTitleIlike("%$title%") as JSON)
@@ -41,7 +41,16 @@ class ExternalController {
         return categories
     }
 
-    def getWalterMarkers(){
+    def getAllExternalMarkers() {
+
+        return getWalterMarkers()
+    }
+
+    def getAllExternalCategories() {
+        return getWalterCategories()
+    }
+
+    def getWalterMarkers() {
         RestBuilder rest = new RestBuilder()
 
         JSONElement markersJson = rest.get('https://arqweb-backend.herokuapp.com/poi/search?') {
@@ -66,13 +75,13 @@ class ExternalController {
                 it.name == markerJson.category.name && it.appId == 'Walters app'
             }
 
-            walterMarkersList.push(marker.buildMarkerFromWaltersJson(markerJson,category))
+            walterMarkersList.push(marker.buildMarkerFromWaltersJson(markerJson, category))
         }
 
         return walterMarkersList
     }
 
-    def getWalterCategories(){
+    def getWalterCategories() {
         RestBuilder rest = new RestBuilder()
 
         JSONElement categoriesJson = rest.get('https://arqweb-backend.herokuapp.com/categories') {
