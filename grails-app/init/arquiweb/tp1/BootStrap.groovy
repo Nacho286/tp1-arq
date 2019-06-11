@@ -2,11 +2,18 @@ package arquiweb.tp1
 
 import arquiweb.tp1.auth.*
 import arquiweb.tp1.*
+import grails.util.Environment
 
 class BootStrap {
     def authenticateService
 
     def init = { servletContext ->
+
+        if (Environment.current == Environment.PRODUCTION) {
+            //en produ no creo nada
+            return
+        }
+
         println 'Initializing users..'
 
         def adminRole = new Role(authority: 'ROLE_ADMIN').save(flush: true)
@@ -72,6 +79,7 @@ class BootStrap {
                  category   : restoCategory,
                  visible    : true,
                  approved   : true])
+
         def barMarker = new Marker(
                 [title      : 'Growlers',
                  latitude   : -34.595026,
@@ -81,6 +89,7 @@ class BootStrap {
                  category   : barCategory,
                  visible    : true,
                  approved   : true])
+
         def mcDonaldsMarker = new Marker(
                 [title      : 'McDonalds',
                  latitude   : -34.5589874,
@@ -90,6 +99,7 @@ class BootStrap {
                  category   : fastFoodCategory,
                  visible    : true,
                  approved   : true])
+
         def burgerMarker = new Marker(
                 [title      : 'El Burger',
                  latitude   : -34.560060,
@@ -98,6 +108,7 @@ class BootStrap {
                  visible    : true,
                  approved   : true]
         )
+
         def starbucksMarker = new Marker(
                 [title      : 'StarBucks Belgrano',
                  latitude   : -34.554921,
@@ -107,6 +118,7 @@ class BootStrap {
                  category   : cafeCategory,
                  visible    : true,
                  approved   : true])
+
         def facuMarker = new Marker(
                 [title      : 'Pabellon 1, FCEN, UBA',
                  latitude   : -34.544406,
@@ -125,6 +137,7 @@ class BootStrap {
         facuMarker.save(flush: true, failOnError: true)
         burgerMarker.save(flush: true, failOnError: true)
     }
+
     def destroy = {
     }
 }

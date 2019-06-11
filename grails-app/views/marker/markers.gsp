@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <head>
     <g:set var="markerService" bean="markerService"/>
-    <g:set var="markersList" value="${markerService.findAll()}"/>
     <g:set var="categoryService" bean="categoryService"/>
-    <g:set var="categoryList" value="${categoryService.findAll()}"/>
+    <g:set var="externalController" bean="externalController"/>
+    <g:set var="blackListController" bean="blackListController"/>
+    <g:set var="markersList" value="${externalController.getAllMarkers()}"/>
+    <g:set var="categoryList" value="${externalController.getAllCategories()}"/>
     <g:set var="homeController" bean="homeController"/>
     <meta name="layout" content="map">
 </head>
@@ -90,7 +92,7 @@
     </div>
 
     <script>
-        var xmlhttp = new XMLHttpRequest();
+        /*var xmlhttp = new XMLHttpRequest();
         var url = "http://localhost:8080/category/index.json";
         var categoriesArray;
 
@@ -100,7 +102,7 @@
             }
         };
         xmlhttp.open("GET", url, true);
-        xmlhttp.send();
+        xmlhttp.send();*/
 
 
         var map;
@@ -172,6 +174,10 @@
                     props.description = '${it.description}';
                 </g:if>
 
+                <g:if test="${it.appId}">
+                    props.appId = '${it.appId}';
+                </g:if>
+
                 <g:if test="${it.imageLink}">
                     props.imageLink = '${it.imageLink}';
                 </g:if>
@@ -225,6 +231,10 @@
                     props.description = '${it.description}';
                     </g:if>
 
+                    <g:if test="${it.appId}">
+                        props.appId = '${it.appId}';
+                    </g:if>
+
                     <g:if test="${it.imageLink}">
                     props.imageLink = '${it.imageLink}';
                     </g:if>
@@ -261,6 +271,9 @@
             var content = '<h3>' + props.title + '</h3>';
             if(props.description){
                 content = content + props.description;
+            }
+            if(props.appId){
+                content = content + props.appId;
             }
             console.log(props.imageLink !== 'undefined' );
             if(typeof props.imageLink !== 'undefined' ){
@@ -334,6 +347,13 @@
                 img.setAttribute('src',props.imageLink);
                 divImg.appendChild(img);
                 a.appendChild(divImg);
+            }
+            if(props.appId){
+                var appId = document.createElement('h6');
+                appId.setAttribute('id','appId');
+                var appIdText = document.createTextNode('[' + props.appId + ']');
+                appId.appendChild(appIdText);
+                a.appendChild(appId);
             }
             li.appendChild(a);
             li.setAttribute('id',props.title);

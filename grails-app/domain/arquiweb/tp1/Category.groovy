@@ -7,6 +7,7 @@ class Category {
     String iconImage
     Boolean visible = true
     Boolean approved = false
+    String appId = "Flor Nachito JC app"
 
     static hasMany = [markers: Marker]
 

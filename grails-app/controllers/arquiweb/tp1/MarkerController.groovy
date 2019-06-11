@@ -1,16 +1,12 @@
 package arquiweb.tp1
 
-import grails.converters.JSON
 import grails.validation.ValidationException
-
-import javax.servlet.http.HttpServletResponse
 
 import static org.springframework.http.HttpStatus.*
 
 class MarkerController {
 
     MarkerService markerService
-    CategoryService categoryService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
