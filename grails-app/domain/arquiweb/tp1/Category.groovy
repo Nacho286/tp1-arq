@@ -27,6 +27,16 @@ class Category {
         return this
     }
 
+    Category buildCategoryFromLugarcitosJson(JSONElement lugarcitosJson){
+        this.id = lugarcitosJson.id
+        this.name = lugarcitosJson.name
+        this.approved = lugarcitosJson.approved
+        this.visible = lugarcitosJson.visible
+        this.appId = 'Lugarcitos app'
+
+        return this
+    }
+
     void printCategory(){
         println("Category:")
         println("Name: " + this.name)

@@ -29,14 +29,14 @@ class ExternalController {
 
     def getAllMarkers() {
         List<Marker> markers = Marker.findAll()
-        markers = markers + getWalterMarkers()
+        markers = markers + getWalterMarkers() + getLugarcitosMarkers()
 
         return markers
     }
 
     def getAllCategories() {
         List<Category> categories = Category.findAll()
-        categories = categories + getWalterCategories()
+        categories = categories + getWalterCategories() + getLugarcitosCategories()
 
         return categories
     }
@@ -66,7 +66,7 @@ class ExternalController {
                 it.name == markerJson.category.name && it.appId == 'Walters app'
             }
 
-            walterMarkersList.push(marker.buildMarkerFromWaltersJson(markerJson,category))
+            walterMarkersList.push(marker.buildMarkerFromWaltersJson(markerJson, category))
         }
 
         return walterMarkersList
@@ -88,4 +88,56 @@ class ExternalController {
 
         return walterCategoriesList
     }
+
+
+    def getLugarcitosMarkers(){
+        RestBuilder rest = new RestBuilder()
+
+        JSONElement markersJson = rest.get('https://lugarcitos.herokuapp.com/api/find_markers?title=') {
+        }.json
+
+        JSONElement categoriesJson = rest.get('https://lugarcitos.herokuapp.com/api/marker_types') {
+        }.json
+
+        List<Category> categories = []
+
+        for (categoryJson in categoriesJson) {
+            Category category = new Category()
+
+            categories.push(category.buildCategoryFromLugarcitosJson(categoryJson))
+        }
+
+
+
+        List<Marker> markersList = []
+
+        for (markerJson in markersJson) {
+            Marker marker = new Marker()
+            Category category = categories.find {
+                it.id == markerJson.category.id && it.appId == 'Lugarcitos app'
+            }
+
+            markersList.push(marker.buildMarkerFromLugarcitosJson(markerJson, category))
+        }
+
+        return markersList
+    }
+
+    def getLugarcitosCategories(){
+        RestBuilder rest = new RestBuilder()
+
+        JSONElement categoriesJson = rest.get('https://lugarcitos.herokuapp.com/api/marker_types') {
+        }.json
+
+        List<Category> categories = []
+
+        for (categoryJson in categoriesJson) {
+            Category category = new Category()
+
+            categories.push(category.buildCategoryFromLugarcitosJson(categoryJson))
+        }
+
+        return categories
+    }
+
 }
