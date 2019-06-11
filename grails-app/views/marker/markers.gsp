@@ -6,7 +6,6 @@
     <g:set var="blackListController" bean="blackListController"/>
     <g:set var="markersList" value="${externalController.getAllMarkers()}"/>
     <g:set var="categoryList" value="${externalController.getAllCategories()}"/>
-    %{--<g:set var="walters" value="${externalController.getWalterMarkers()}"/>--}%
     <g:set var="homeController" bean="homeController"/>
     <meta name="layout" content="map">
 </head>
@@ -93,22 +92,6 @@
     </div>
 
     <script>
-        /*var xmlhttp = new XMLHttpRequest();
-        var url = "http://localhost:8080/category/index.json";
-        var categoriesArray;
-
-        xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                categoriesArray = JSON.parse(this.responseText);
-            }
-        };
-        xmlhttp.open("GET", url, true);
-        xmlhttp.send();*/
-
-        /*var parserr = new DOMParser;
-         console.log(parserr.parseFromString("",'text/html');
-         */
-
         var map;
         var markersByTitle = [];
         var marker;

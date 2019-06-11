@@ -35,6 +35,20 @@ class Marker {
         return this
     }
 
+    Marker buildMarkerFromLugarcitosJson(JSONElement lugarcitosJson, Category category){
+
+        this.title = lugarcitosJson.title
+        this.description = lugarcitosJson.description
+        this.latitude = lugarcitosJson.latitude
+        this.longitude = lugarcitosJson.longitude
+        this.visible = lugarcitosJson.visible
+        this.approved = lugarcitosJson.approved
+        this.appId = 'Lugarcitos app'
+        this.category = category
+
+        return this
+    }
+
     void printMarker(){
         println("Marker:")
         println("title: " + this.title)
