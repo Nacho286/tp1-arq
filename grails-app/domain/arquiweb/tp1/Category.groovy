@@ -33,6 +33,7 @@ class Category {
         this.name = lugarcitosJson.name
         this.approved = lugarcitosJson.approved
         this.visible = lugarcitosJson.visible
+        //this.iconImage = lugarcitosJson.iconImage
         this.appId = 'Lugarcitos app'
 
         return this

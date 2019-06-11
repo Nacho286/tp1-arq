@@ -43,6 +43,7 @@ class Marker {
         this.longitude = lugarcitosJson.longitude
         this.visible = lugarcitosJson.visible
         this.approved = lugarcitosJson.approved
+        this.imageLink = lugarcitosJson.imageLink
         this.appId = 'Lugarcitos app'
         this.category = category
 
