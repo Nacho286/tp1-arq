@@ -92,19 +92,6 @@
     </div>
 
     <script>
-        /*var xmlhttp = new XMLHttpRequest();
-        var url = "http://localhost:8080/category/index.json";
-        var categoriesArray;
-
-        xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                categoriesArray = JSON.parse(this.responseText);
-            }
-        };
-        xmlhttp.open("GET", url, true);
-        xmlhttp.send();*/
-
-
         var map;
         var markersByTitle = [];
         var marker;
