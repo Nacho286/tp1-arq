@@ -23,6 +23,7 @@ class Category {
         this.approved = !walterJson.hidden
         this.visible = true
         this.appId = 'Walters app'
+        this.iconImage = 'https://www.google.com.au/maps/vt/icon/name=assets/icons/spotlight/spotlight_pin_v2_shadow-1-small.png,assets/icons/spotlight/spotlight_pin_v2-1-small.png,assets/icons/spotlight/spotlight_pin_v2_dot-1-small.png,assets/icons/spotlight/spotlight_pin_v2_accent-1-small.png&highlight=ff000000,32a334,ffffff&color=ff000000?scale=0.9'
 
         return this
     }
