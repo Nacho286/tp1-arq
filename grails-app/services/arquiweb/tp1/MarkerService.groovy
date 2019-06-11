@@ -38,13 +38,15 @@ abstract class MarkerService {
         Category category = categoryService.findByName(params.category)
         Marker marker = new Marker(title: params.name,
         description:params.description,
-        visible: false,
+        visible: true,
         category: category,
         latitude: Double.valueOf(params.lat),
         longitude: Double.valueOf(params.long),
-        imageLink: params.imageLink)
+        imageLink: params.imageLink,
+        approved: params.approved ?: false,
+        appId: params.appId ?: "Flor Nachito JC app")
 
-        marker.save()
+        save(marker)
     }
 
 }
