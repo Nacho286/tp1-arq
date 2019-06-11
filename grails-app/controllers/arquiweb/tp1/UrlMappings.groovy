@@ -22,16 +22,28 @@ class UrlMappings {
         "404"(view: '/notFound')
 
 
+        "/blackList/putInBlackList"(controller: "BlackList", parseRequest: true) {
+            action = [GET: 'putInBlackList']
+        }
 
-        "/markers"(controller: "External", parseRequest: true){
+
+        "/blackList/removeFromBlackList"(controller: "BlackList", parseRequest: true) {
+            action = [GET: 'removeFromBlackList']
+        }
+
+        "/markers"(controller: "External", parseRequest: true) {
             action = [GET: 'listMarkers', OPTIONS: "options"]
         }
 
-        "/categories"(controller: "External", parseRequest: true){
+        "/categories"(controller: "External", parseRequest: true) {
             action = [GET: 'listCategories', OPTIONS: "options"]
         }
 
-        "/search"(controller: "External", parseRequest: true){
+        "/extmarker"(controller: "External", parseRequest: true) {
+            action = [GET: 'listCategories', OPTIONS: "options"]
+        }
+
+        "/search"(controller: "External", parseRequest: true) {
             action = [GET: 'searchMarkers', OPTIONS: "options"]
         }
     }

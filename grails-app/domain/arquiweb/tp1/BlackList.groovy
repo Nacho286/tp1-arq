@@ -2,7 +2,7 @@ package arquiweb.tp1
 
 class BlackList {
 
-    Long markerId
+    String markerId
     String appId
 
     static constraints = {

@@ -21,7 +21,7 @@ class ExternalController {
     def searchMarkers() {
         response.status = HttpServletResponse.SC_OK
         String title = params.title
-        if(!params.title){
+        if (!params.title) {
             title = ""
         }
         return render(Marker.findAllByTitleIlike("%$title%") as JSON)
@@ -31,7 +31,14 @@ class ExternalController {
         List<Marker> markers = Marker.findAll()
         markers = markers + getWalterMarkers() + getLugarcitosMarkers()
 
-        return markers
+        List<Marker> finalMarkers = []
+        for(marker in markers){
+            if(!BlackList.findByAppIdAndMarkerId(marker.appId,marker.title)){
+                finalMarkers.add(marker)
+            }
+        }
+
+        return finalMarkers
     }
 
     def getAllCategories() {
@@ -41,7 +48,16 @@ class ExternalController {
         return categories
     }
 
-    def getWalterMarkers(){
+    def getAllExternalMarkers() {
+
+        return getWalterMarkers() + getLugarcitosMarkers()
+    }
+
+    def getAllExternalCategories() {
+        return getWalterCategories() + getLugarcitosCategories()
+    }
+
+    def getWalterMarkers() {
         RestBuilder rest = new RestBuilder()
 
         JSONElement markersJson = rest.get('https://arqweb-backend.herokuapp.com/poi/search?') {
@@ -72,7 +88,7 @@ class ExternalController {
         return walterMarkersList
     }
 
-    def getWalterCategories(){
+    def getWalterCategories() {
         RestBuilder rest = new RestBuilder()
 
         JSONElement categoriesJson = rest.get('https://arqweb-backend.herokuapp.com/categories') {
@@ -90,7 +106,7 @@ class ExternalController {
     }
 
 
-    def getLugarcitosMarkers(){
+    def getLugarcitosMarkers() {
         RestBuilder rest = new RestBuilder()
 
         JSONElement markersJson = rest.get('https://lugarcitos.herokuapp.com/api/find_markers?title=') {
@@ -108,7 +124,6 @@ class ExternalController {
         }
 
 
-
         List<Marker> markersList = []
 
         for (markerJson in markersJson) {
@@ -123,7 +138,7 @@ class ExternalController {
         return markersList
     }
 
-    def getLugarcitosCategories(){
+    def getLugarcitosCategories() {
         RestBuilder rest = new RestBuilder()
 
         JSONElement categoriesJson = rest.get('https://lugarcitos.herokuapp.com/api/marker_types') {

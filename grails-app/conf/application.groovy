@@ -21,7 +21,9 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 		[pattern: '/dbconsole/*',	 access: ['permitAll']], /*Dejo esto para poder tocar la BD*/
 		[pattern: '/marker/markers', access: ['permitAll']],
 		[pattern: '/marker/*', 		 access: ['ROLE_USER','ROLE_ADMIN']],
-		[pattern: '/category/*', 	 access: ['ROLE_ADMIN']]
+		[pattern: '/category/*', 	 access: ['ROLE_ADMIN']],
+		[pattern: '/extMarker/*', 	 access: ['ROLE_USER','ROLE_ADMIN']],
+		[pattern: '/extCategory/*',  access: ['ROLE_ADMIN']]
 ]
 
 grails.plugin.springsecurity.filterChain.chainMap = [
@@ -33,6 +35,7 @@ grails.plugin.springsecurity.filterChain.chainMap = [
 		[pattern: '/markers', 		 filters: 'none'],
 		[pattern: '/categories', 	 filters: 'none'],
 		[pattern: '/search*', 	 	 filters: 'none'],
+		[pattern: '/blackList/**', 	 filters: 'none'],
 		[pattern: '/**',             filters: 'JOINED_FILTERS']
 ]
 
