@@ -174,6 +174,10 @@
                     props.description = '${it.description}';
                 </g:if>
 
+                <g:if test="${it.appId}">
+                    props.appId = '${it.appId}';
+                </g:if>
+
                 <g:if test="${it.imageLink}">
                     props.imageLink = '${it.imageLink}';
                 </g:if>
@@ -227,6 +231,10 @@
                     props.description = '${it.description}';
                     </g:if>
 
+                    <g:if test="${it.appId}">
+                        props.appId = '${it.appId}';
+                    </g:if>
+
                     <g:if test="${it.imageLink}">
                     props.imageLink = '${it.imageLink}';
                     </g:if>
@@ -263,6 +271,9 @@
             var content = '<h3>' + props.title + '</h3>';
             if(props.description){
                 content = content + props.description;
+            }
+            if(props.appId){
+                content = content + props.appId;
             }
             console.log(props.imageLink !== 'undefined' );
             if(typeof props.imageLink !== 'undefined' ){
@@ -336,6 +347,13 @@
                 img.setAttribute('src',props.imageLink);
                 divImg.appendChild(img);
                 a.appendChild(divImg);
+            }
+            if(props.appId){
+                var appId = document.createElement('h6');
+                appId.setAttribute('id','appId');
+                var appIdText = document.createTextNode('[' + props.appId + ']');
+                appId.appendChild(appIdText);
+                a.appendChild(appId);
             }
             li.appendChild(a);
             li.setAttribute('id',props.title);
